@@ -1,0 +1,52 @@
+{
+  "name": "cheat-detector",
+  "version": "1.0.0",
+  "description": "CheatDetector - Análisis inteligente de chats de WhatsApp para detectar patrones de infidelidad",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve -s . -l 3000",
+    "dev": "serve -s . -l 3000 --live-reload",
+    "build": "echo 'Building CheatDetector...' && npm run lint && npm run minify",
+    "lint": "echo 'Linting files...'",
+    "minify": "echo 'Minifying assets...'",
+    "test": "echo 'No tests available yet'",
+    "deploy": "echo 'Deploying to production...'"
+  },
+  "keywords": [
+    "whatsapp",
+    "chat",
+    "analysis",
+    "infidelity",
+    "detector",
+    "ai",
+    "javascript",
+    "web"
+  ],
+  "author": {
+    "name": "CheatDetector Team",
+    "email": "contact@cheatdetector.com",
+    "url": "https://cheatdetector.com"
+  },
+  "license": "MIT",
+  "homepage": "https://cheatdetector.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cheatdetector/cheatdetector.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cheatdetector/cheatdetector/issues"
+  },
+  "devDependencies": {
+    "serve": "^14.2.1"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "dependencies": {}
+}

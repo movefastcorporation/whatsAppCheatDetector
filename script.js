@@ -1,662 +1,683 @@
+// CheatDetector JavaScript - Enhanced functionality for infidelity detection
+
+// Smooth scroll functions
+function scrollToAnalyzer() {
+    document.getElementById('analyzer').scrollIntoView({ behavior: 'smooth' });
+}
+
+function scrollToFeatures() {
+    document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
+}
+
 // DOM Elements
-const navToggle = document.getElementById('nav-toggle');
-const navMenu = document.querySelector('.nav-menu');
-const modal = document.getElementById('analysis-modal');
-const modalClose = document.getElementById('modal-close');
-const startAnalysisButtons = document.querySelectorAll('#start-analysis, #start-analysis-cta');
-const demoButton = document.getElementById('demo-btn');
-const chatFileInput = document.getElementById('chat-file');
-const analyzeButton = document.getElementById('analyze-btn');
-const uploadLabel = document.querySelector('.upload-label');
+let uploadArea;
+let fileInput;
+let resultsContainer;
+let riskLevel;
 
-// Navigation Toggle
-navToggle?.addEventListener('click', () => {
-  navMenu.classList.toggle('active');
-  const icon = navToggle.querySelector('i');
-  
-  if (navMenu.classList.contains('active')) {
-    icon.className = 'fas fa-times';
-    navMenu.style.display = 'flex';
-    navMenu.style.flexDirection = 'column';
-    navMenu.style.position = 'absolute';
-    navMenu.style.top = '100%';
-    navMenu.style.left = '0';
-    navMenu.style.right = '0';
-    navMenu.style.background = 'rgba(255, 255, 255, 0.98)';
-    navMenu.style.backdropFilter = 'blur(10px)';
-    navMenu.style.padding = '2rem';
-    navMenu.style.borderTop = '1px solid var(--gray-200)';
-    navMenu.style.boxShadow = '0 4px 6px -1px rgb(0 0 0 / 0.1)';
-  } else {
-    icon.className = 'fas fa-bars';
-    navMenu.style.display = '';
-    navMenu.style.flexDirection = '';
-    navMenu.style.position = '';
-    navMenu.style.top = '';
-    navMenu.style.left = '';
-    navMenu.style.right = '';
-    navMenu.style.background = '';
-    navMenu.style.backdropFilter = '';
-    navMenu.style.padding = '';
-    navMenu.style.borderTop = '';
-    navMenu.style.boxShadow = '';
-  }
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initializeElements();
+    setupEventListeners();
+    setupAnimations();
 });
 
-// Smooth Scrolling for Navigation Links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    
-    if (target) {
-      const headerHeight = document.querySelector('.header').offsetHeight;
-      const targetPosition = target.offsetTop - headerHeight - 20;
-      
-      window.scrollTo({
-        top: targetPosition,
-        behavior: 'smooth'
-      });
-      
-      // Close mobile menu if open
-      if (navMenu.classList.contains('active')) {
-        navToggle.click();
-      }
+function initializeElements() {
+    uploadArea = document.getElementById('uploadArea');
+    fileInput = document.getElementById('fileInput');
+    resultsContainer = document.getElementById('resultsContainer');
+    riskLevel = document.getElementById('riskLevel');
+}
+
+function setupEventListeners() {
+    // File upload handling
+    if (uploadArea && fileInput) {
+        uploadArea.addEventListener('click', () => fileInput.click());
+        uploadArea.addEventListener('dragover', handleDragOver);
+        uploadArea.addEventListener('drop', handleDrop);
+        fileInput.addEventListener('change', handleFileSelect);
     }
-  });
-});
 
-// Header Scroll Effect
-let lastScrollY = window.scrollY;
-const header = document.querySelector('.header');
-
-window.addEventListener('scroll', () => {
-  const currentScrollY = window.scrollY;
-  
-  if (currentScrollY > 100) {
-    header.style.background = 'rgba(255, 255, 255, 0.98)';
-    header.style.boxShadow = '0 4px 6px -1px rgb(0 0 0 / 0.1)';
-  } else {
-    header.style.background = 'rgba(255, 255, 255, 0.95)';
-    header.style.boxShadow = 'none';
-  }
-  
-  // Hide/show header on scroll
-  if (currentScrollY > lastScrollY && currentScrollY > 200) {
-    header.style.transform = 'translateY(-100%)';
-  } else {
-    header.style.transform = 'translateY(0)';
-  }
-  
-  lastScrollY = currentScrollY;
-});
-
-// Modal Functionality
-function openModal() {
-  modal.classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeModal() {
-  modal.classList.remove('active');
-  document.body.style.overflow = '';
-  
-  // Reset form
-  chatFileInput.value = '';
-  analyzeButton.disabled = true;
-  updateUploadLabel();
-}
-
-// Open modal when clicking start analysis buttons
-startAnalysisButtons.forEach(button => {
-  button.addEventListener('click', openModal);
-});
-
-// Close modal
-modalClose?.addEventListener('click', closeModal);
-
-// Close modal when clicking outside
-modal?.addEventListener('click', (e) => {
-  if (e.target === modal) {
-    closeModal();
-  }
-});
-
-// Close modal with ESC key
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && modal.classList.contains('active')) {
-    closeModal();
-  }
-});
-
-// Demo Button Functionality
-demoButton?.addEventListener('click', () => {
-  // Scroll to features section for demo
-  const featuresSection = document.getElementById('como-funciona');
-  if (featuresSection) {
-    const headerHeight = document.querySelector('.header').offsetHeight;
-    const targetPosition = featuresSection.offsetTop - headerHeight - 20;
-    
-    window.scrollTo({
-      top: targetPosition,
-      behavior: 'smooth'
+    // Navigation smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
     });
-  }
-  
-  // Show demo animation
-  showDemoAnimation();
-});
 
-function showDemoAnimation() {
-  const phoneScreen = document.querySelector('.phone-screen');
-  const progressFill = document.querySelector('.progress-fill');
-  const progressText = document.querySelector('.progress-text');
-  
-  if (!phoneScreen || !progressFill || !progressText) return;
-  
-  // Reset animation
-  progressFill.style.animation = 'none';
-  progressFill.offsetHeight; // Trigger reflow
-  progressFill.style.animation = '';
-  
-  const messages = [
-    'Analizando patrones de tiempo...',
-    'Detectando cambios de comportamiento...',
-    'Examinando frecuencia de mensajes...',
-    'Identificando contactos sospechosos...',
-    'Generando reporte final...',
-    '¡Análisis completado!'
-  ];
-  
-  let messageIndex = 0;
-  const messageInterval = setInterval(() => {
-    progressText.textContent = messages[messageIndex];
-    messageIndex++;
-    
-    if (messageIndex >= messages.length) {
-      clearInterval(messageInterval);
-      setTimeout(() => {
-        progressText.textContent = 'Detectando patrones sospechosos...';
-      }, 2000);
-    }
-  }, 1000);
+    // Header scroll effect
+    window.addEventListener('scroll', handleScroll);
 }
 
-// File Upload Functionality
-function updateUploadLabel(fileName = null) {
-  const label = uploadLabel.querySelector('span') || uploadLabel;
-  const icon = uploadLabel.querySelector('i');
-  
-  if (fileName) {
-    if (icon) icon.className = 'fas fa-file-alt';
-    label.innerHTML = `<i class="fas fa-file-alt"></i> ${fileName}`;
-    uploadLabel.style.background = 'var(--primary-light)';
-    uploadLabel.style.borderColor = 'var(--primary)';
-    uploadLabel.style.color = 'var(--primary)';
-  } else {
-    if (icon) icon.className = 'fas fa-cloud-upload-alt';
-    label.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Seleccionar archivo de chat';
-    uploadLabel.style.background = '';
-    uploadLabel.style.borderColor = '';
-    uploadLabel.style.color = '';
-  }
-}
-
-chatFileInput?.addEventListener('change', (e) => {
-  const file = e.target.files[0];
-  
-  if (file) {
-    updateUploadLabel(file.name);
-    analyzeButton.disabled = false;
-    
-    // Validate file type
-    if (!file.name.endsWith('.txt')) {
-      showNotification('Por favor, selecciona un archivo .txt válido.', 'warning');
-      analyzeButton.disabled = true;
-      return;
-    }
-    
-    // Check file size (max 10MB)
-    if (file.size > 10 * 1024 * 1024) {
-      showNotification('El archivo es demasiado grande. Máximo 10MB.', 'error');
-      analyzeButton.disabled = true;
-      return;
-    }
-    
-    showNotification('Archivo cargado correctamente', 'success');
-  } else {
-    updateUploadLabel();
-    analyzeButton.disabled = true;
-  }
-});
-
-// Analyze Button Functionality
-analyzeButton?.addEventListener('click', () => {
-  const file = chatFileInput.files[0];
-  
-  if (!file) {
-    showNotification('Por favor, selecciona un archivo primero.', 'warning');
-    return;
-  }
-  
-  // Start analysis simulation
-  startAnalysisSimulation();
-});
-
-function startAnalysisSimulation() {
-  // Update button to show loading state
-  analyzeButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analizando...';
-  analyzeButton.disabled = true;
-  
-  // Simulate analysis process
-  setTimeout(() => {
-    showAnalysisResults();
-  }, 5000);
-  
-  // Show progress updates
-  const updates = [
-    { delay: 1000, message: 'Procesando archivo...' },
-    { delay: 2000, message: 'Analizando patrones...' },
-    { delay: 3500, message: 'Detectando anomalías...' },
-    { delay: 4500, message: 'Generando reporte...' }
-  ];
-  
-  updates.forEach(update => {
-    setTimeout(() => {
-      showNotification(update.message, 'info');
-    }, update.delay);
-  });
-}
-
-function showAnalysisResults() {
-  // Close modal
-  closeModal();
-  
-  // Show success notification
-  showNotification('¡Análisis completado! Revisa tu email para el reporte completo.', 'success');
-  
-  // Reset button
-  analyzeButton.innerHTML = '<i class="fas fa-search"></i> Analizar Conversación';
-  analyzeButton.disabled = false;
-  
-  // Scroll to pricing section
-  setTimeout(() => {
-    const pricingSection = document.getElementById('precios');
-    if (pricingSection) {
-      const headerHeight = document.querySelector('.header').offsetHeight;
-      const targetPosition = pricingSection.offsetTop - headerHeight - 20;
-      
-      window.scrollTo({
-        top: targetPosition,
-        behavior: 'smooth'
-      });
-    }
-  }, 2000);
-}
-
-// Notification System
-function showNotification(message, type = 'info') {
-  // Remove existing notifications
-  const existingNotifications = document.querySelectorAll('.notification');
-  existingNotifications.forEach(notification => notification.remove());
-  
-  // Create notification element
-  const notification = document.createElement('div');
-  notification.className = `notification notification-${type}`;
-  
-  const icon = getNotificationIcon(type);
-  notification.innerHTML = `
-    <i class="${icon}"></i>
-    <span>${message}</span>
-    <button class="notification-close">
-      <i class="fas fa-times"></i>
-    </button>
-  `;
-  
-  // Add styles
-  Object.assign(notification.style, {
-    position: 'fixed',
-    top: '20px',
-    right: '20px',
-    background: getNotificationColor(type),
-    color: 'white',
-    padding: '1rem 1.5rem',
-    borderRadius: '0.75rem',
-    boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)',
-    zIndex: '3000',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.75rem',
-    maxWidth: '400px',
-    animation: 'slideInRight 0.3s ease-out'
-  });
-  
-  // Add close functionality
-  const closeButton = notification.querySelector('.notification-close');
-  closeButton.style.background = 'none';
-  closeButton.style.border = 'none';
-  closeButton.style.color = 'white';
-  closeButton.style.cursor = 'pointer';
-  closeButton.style.padding = '0.25rem';
-  closeButton.style.borderRadius = '0.25rem';
-  closeButton.style.opacity = '0.8';
-  
-  closeButton.addEventListener('click', () => {
-    notification.style.animation = 'slideOutRight 0.3s ease-in';
-    setTimeout(() => notification.remove(), 300);
-  });
-  
-  document.body.appendChild(notification);
-  
-  // Auto-remove after 5 seconds
-  setTimeout(() => {
-    if (notification.parentNode) {
-      notification.style.animation = 'slideOutRight 0.3s ease-in';
-      setTimeout(() => notification.remove(), 300);
-    }
-  }, 5000);
-}
-
-function getNotificationIcon(type) {
-  const icons = {
-    success: 'fas fa-check-circle',
-    error: 'fas fa-exclamation-circle',
-    warning: 'fas fa-exclamation-triangle',
-    info: 'fas fa-info-circle'
-  };
-  return icons[type] || icons.info;
-}
-
-function getNotificationColor(type) {
-  const colors = {
-    success: '#10b981',
-    error: '#ef4444',
-    warning: '#f59e0b',
-    info: '#3b82f6'
-  };
-  return colors[type] || colors.info;
-}
-
-// Add notification animations
-const notificationStyles = document.createElement('style');
-notificationStyles.textContent = `
-  @keyframes slideInRight {
-    from {
-      opacity: 0;
-      transform: translateX(100%);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-  
-  @keyframes slideOutRight {
-    from {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    to {
-      opacity: 0;
-      transform: translateX(100%);
-    }
-  }
-`;
-document.head.appendChild(notificationStyles);
-
-// Scroll Animations
-const observerOptions = {
-  threshold: 0.1,
-  rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('fade-in-up');
-    }
-  });
-}, observerOptions);
-
-// Observe elements for animation
-document.addEventListener('DOMContentLoaded', () => {
-  const animatedElements = document.querySelectorAll('.feature-card, .step, .pricing-card, .testimonial-card');
-  animatedElements.forEach(el => {
-    observer.observe(el);
-  });
-});
-
-// Pricing Card Hover Effects
-document.querySelectorAll('.pricing-card').forEach(card => {
-  card.addEventListener('mouseenter', () => {
-    card.style.transform = card.classList.contains('featured') 
-      ? 'translateY(-8px) scale(1.05)' 
-      : 'translateY(-8px)';
-  });
-  
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = card.classList.contains('featured') 
-      ? 'scale(1.05)' 
-      : '';
-  });
-});
-
-// Statistics Animation
-function animateStats() {
-  const stats = document.querySelectorAll('.stat-number');
-  
-  stats.forEach(stat => {
-    const target = stat.textContent.replace(/[^\d]/g, '');
-    const isPercentage = stat.textContent.includes('%');
-    let current = 0;
-    const increment = target / 50;
-    
-    const timer = setInterval(() => {
-      current += increment;
-      
-      if (current >= target) {
-        current = target;
-        clearInterval(timer);
-      }
-      
-      stat.textContent = isPercentage 
-        ? Math.floor(current) + '%'
-        : Math.floor(current).toLocaleString() + '+';
-    }, 40);
-  });
-}
-
-// Trigger stats animation when hero section is visible
-const heroObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      animateStats();
-      heroObserver.unobserve(entry.target);
-    }
-  });
-});
-
-const heroSection = document.querySelector('.hero');
-if (heroSection) {
-  heroObserver.observe(heroSection);
-}
-
-// Form Validation
-function validateEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-}
-
-// Contact Form (if needed)
-const contactForms = document.querySelectorAll('form[data-contact]');
-contactForms.forEach(form => {
-  form.addEventListener('submit', (e) => {
+function handleDragOver(e) {
     e.preventDefault();
-    
-    const formData = new FormData(form);
-    const email = formData.get('email');
-    
-    if (email && !validateEmail(email)) {
-      showNotification('Por favor, ingresa un email válido.', 'warning');
-      return;
-    }
-    
-    // Simulate form submission
-    showNotification('Mensaje enviado correctamente. Te contactaremos pronto.', 'success');
-    form.reset();
-  });
-});
-
-// Performance Optimizations
-// Lazy load images
-const images = document.querySelectorAll('img[data-src]');
-const imageObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const img = entry.target;
-      img.src = img.dataset.src;
-      img.classList.remove('lazy');
-      imageObserver.unobserve(img);
-    }
-  });
-});
-
-images.forEach(img => imageObserver.observe(img));
-
-// Preload critical resources
-const preloadLinks = [
-  'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap',
-  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
-];
-
-preloadLinks.forEach(href => {
-  const link = document.createElement('link');
-  link.rel = 'preload';
-  link.as = 'style';
-  link.href = href;
-  link.onload = function() {
-    this.onload = null;
-    this.rel = 'stylesheet';
-  };
-  document.head.appendChild(link);
-});
-
-// Service Worker Registration (if available)
-if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then(registration => {
-        console.log('SW registered: ', registration);
-      })
-      .catch(registrationError => {
-        console.log('SW registration failed: ', registrationError);
-      });
-  });
+    uploadArea.classList.add('drag-over');
+    uploadArea.style.background = 'rgba(255, 71, 87, 0.1)';
+    uploadArea.style.borderColor = 'var(--primary)';
 }
 
-// PWA Install Prompt
-let deferredPrompt;
+function handleDrop(e) {
+    e.preventDefault();
+    uploadArea.classList.remove('drag-over');
+    uploadArea.style.background = '';
+    uploadArea.style.borderColor = '';
+    
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+        processFile(files[0]);
+    }
+}
 
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  
-  // Show install button or notification
-  showInstallPrompt();
-});
+function handleFileSelect(e) {
+    const file = e.target.files[0];
+    if (file) {
+        processFile(file);
+    }
+}
 
-function showInstallPrompt() {
-  const installNotification = document.createElement('div');
-  installNotification.innerHTML = `
-    <div style="position: fixed; bottom: 20px; left: 20px; right: 20px; background: var(--primary); color: white; padding: 1rem; border-radius: 0.75rem; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); z-index: 3000; display: flex; align-items: center; justify-content: space-between; max-width: 400px; margin: 0 auto;">
-      <div>
-        <strong>¡Instala ChillDetector!</strong>
-        <p style="margin: 0; opacity: 0.9; font-size: 0.875rem;">Accede rápidamente desde tu dispositivo</p>
-      </div>
-      <div>
-        <button id="install-button" style="background: white; color: var(--primary); border: none; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; margin-right: 0.5rem; cursor: pointer;">Instalar</button>
-        <button id="dismiss-install" style="background: none; color: white; border: none; padding: 0.5rem; cursor: pointer; opacity: 0.8;">✕</button>
-      </div>
-    </div>
-  `;
-  
-  document.body.appendChild(installNotification);
-  
-  document.getElementById('install-button').addEventListener('click', () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-          console.log('User accepted the install prompt');
+function processFile(file) {
+    // Validate file type
+    if (!file.name.toLowerCase().endsWith('.txt')) {
+        showNotification('Por favor, selecciona un archivo .txt de WhatsApp', 'error');
+        return;
+    }
+
+    // Check file size (max 50MB)
+    if (file.size > 50 * 1024 * 1024) {
+        showNotification('Archivo demasiado grande. Máximo 50MB.', 'error');
+        return;
+    }
+
+    showNotification('Archivo cargado. Iniciando análisis...', 'success');
+    
+    // Read file content
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const content = e.target.result;
+        analyzeChat(content);
+    };
+    reader.readAsText(file);
+}
+
+function analyzeChat(content) {
+    // Show loading state
+    showLoadingAnimation();
+    
+    // Simulate analysis delay
+    setTimeout(() => {
+        const analysis = performChatAnalysis(content);
+        displayResults(analysis);
+    }, 3000);
+}
+
+function performChatAnalysis(content) {
+    const lines = content.split('\n').filter(line => line.trim());
+    const messages = parseWhatsAppChat(lines);
+    
+    if (messages.length === 0) {
+        return {
+            error: 'No se pudieron encontrar mensajes válidos en el archivo'
+        };
+    }
+
+    // Analyze different patterns
+    const timeAnalysis = analyzeTimePatterns(messages);
+    const contentAnalysis = analyzeMessageContent(messages);
+    const behaviorAnalysis = analyzeBehaviorPatterns(messages);
+    const statisticsAnalysis = generateStatistics(messages);
+
+    // Calculate risk score
+    const riskScore = calculateRiskScore(timeAnalysis, contentAnalysis, behaviorAnalysis);
+
+    return {
+        riskScore,
+        timeAnalysis,
+        contentAnalysis,
+        behaviorAnalysis,
+        statistics: statisticsAnalysis,
+        totalMessages: messages.length
+    };
+}
+
+function parseWhatsAppChat(lines) {
+    const messages = [];
+    const messageRegex = /^(\d{1,2}\/\d{1,2}\/\d{2,4}),?\s(\d{1,2}:\d{2}(?::\d{2})?(?:\s?[APap][Mm])?)\s?[-–]\s?([^:]+):\s(.+)$/;
+    
+    lines.forEach(line => {
+        const match = line.match(messageRegex);
+        if (match) {
+            messages.push({
+                date: match[1],
+                time: match[2],
+                sender: match[3].trim(),
+                content: match[4].trim(),
+                timestamp: parseTimestamp(match[1], match[2])
+            });
         }
-        deferredPrompt = null;
-        installNotification.remove();
-      });
-    }
-  });
-  
-  document.getElementById('dismiss-install').addEventListener('click', () => {
-    installNotification.remove();
-  });
-  
-  // Auto-dismiss after 10 seconds
-  setTimeout(() => {
-    if (installNotification.parentNode) {
-      installNotification.remove();
-    }
-  }, 10000);
+    });
+    
+    return messages;
 }
 
-// Error Handling
-window.addEventListener('error', (e) => {
-  console.error('JavaScript Error:', e.error);
-  // Don't show error notifications to users in production
-});
-
-window.addEventListener('unhandledrejection', (e) => {
-  console.error('Unhandled Promise Rejection:', e.reason);
-  e.preventDefault();
-});
-
-// Initialize Application
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('ChillDetector loaded successfully!');
-  
-  // Add any initialization code here
-  updateUploadLabel();
-  
-  // Set up any additional event listeners or initialization
-  setupKeyboardNavigation();
-});
-
-// Keyboard Navigation
-function setupKeyboardNavigation() {
-  document.addEventListener('keydown', (e) => {
-    // Tab navigation improvements
-    if (e.key === 'Tab') {
-      document.body.classList.add('keyboard-navigation');
-    }
-  });
-  
-  document.addEventListener('mousedown', () => {
-    document.body.classList.remove('keyboard-navigation');
-  });
+function parseTimestamp(date, time) {
+    // Convert to standard format for analysis
+    const [day, month, year] = date.split('/');
+    const fullYear = year.length === 2 ? '20' + year : year;
+    return new Date(`${fullYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')} ${time}`);
 }
 
-// Add keyboard navigation styles
-const keyboardStyles = document.createElement('style');
-keyboardStyles.textContent = `
-  .keyboard-navigation *:focus {
-    outline: 2px solid var(--primary) !important;
-    outline-offset: 2px !important;
-  }
-  
-  .keyboard-navigation button:focus,
-  .keyboard-navigation a:focus,
-  .keyboard-navigation input:focus,
-  .keyboard-navigation textarea:focus,
-  .keyboard-navigation select:focus {
-    box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.3) !important;
-  }
-`;
-document.head.appendChild(keyboardStyles);
+function analyzeTimePatterns(messages) {
+    const lateNightMessages = messages.filter(msg => {
+        const hour = msg.timestamp.getHours();
+        return hour >= 22 || hour <= 5;
+    });
+
+    const earlyMorningMessages = messages.filter(msg => {
+        const hour = msg.timestamp.getHours();
+        return hour >= 1 && hour <= 6;
+    });
+
+    const weekendActivity = messages.filter(msg => {
+        const day = msg.timestamp.getDay();
+        return day === 0 || day === 6; // Sunday or Saturday
+    });
+
+    return {
+        lateNightCount: lateNightMessages.length,
+        earlyMorningCount: earlyMorningMessages.length,
+        weekendCount: weekendActivity.length,
+        suspiciousTimePattern: lateNightMessages.length > messages.length * 0.2
+    };
+}
+
+function analyzeMessageContent(messages) {
+    const suspiciousKeywords = [
+        'secreto', 'oculto', 'no le digas', 'entre nosotros', 'confidencial',
+        'borrar', 'eliminar', 'trabajo tarde', 'reunión', 'viaje de trabajo',
+        'no puedo hablar', 'después hablamos', 'te llamo luego',
+        'estoy ocupado', 'no estoy disponible', 'sin planes',
+        'amigo', 'amiga', 'compañero', 'compañera', 'colega'
+    ];
+
+    const romanticKeywords = [
+        'te amo', 'te quiero', 'mi amor', 'cariño', 'bebé', 'hermosa',
+        'guapo', 'linda', 'preciosa', 'corazón', '❤️', '😘', '😍', '🥰'
+    ];
+
+    const evasivePatterns = [
+        'después hablamos', 'no puedo ahora', 'estoy en reunión',
+        'con la familia', 'durmiendo', 'ocupado', 'trabajando'
+    ];
+
+    let suspiciousContent = 0;
+    let romanticContent = 0;
+    let evasiveContent = 0;
+
+    messages.forEach(msg => {
+        const content = msg.content.toLowerCase();
+        
+        suspiciousKeywords.forEach(keyword => {
+            if (content.includes(keyword)) suspiciousContent++;
+        });
+
+        romanticKeywords.forEach(keyword => {
+            if (content.includes(keyword)) romanticContent++;
+        });
+
+        evasivePatterns.forEach(pattern => {
+            if (content.includes(pattern)) evasiveContent++;
+        });
+    });
+
+    return {
+        suspiciousContent,
+        romanticContent,
+        evasiveContent,
+        hasSuspiciousContent: suspiciousContent > 0,
+        hasRomanticContent: romanticContent > 0,
+        hasEvasivePatterns: evasiveContent > 0
+    };
+}
+
+function analyzeBehaviorPatterns(messages) {
+    const senders = [...new Set(messages.map(msg => msg.sender))];
+    const senderStats = {};
+
+    senders.forEach(sender => {
+        const senderMessages = messages.filter(msg => msg.sender === sender);
+        senderStats[sender] = {
+            messageCount: senderMessages.length,
+            avgLength: senderMessages.reduce((sum, msg) => sum + msg.content.length, 0) / senderMessages.length,
+            timePatterns: analyzeTimePatterns(senderMessages)
+        };
+    });
+
+    const responseTimes = [];
+    for (let i = 1; i < messages.length; i++) {
+        if (messages[i].sender !== messages[i-1].sender) {
+            const timeDiff = messages[i].timestamp - messages[i-1].timestamp;
+            responseTimes.push(timeDiff);
+        }
+    }
+
+    const avgResponseTime = responseTimes.length > 0 
+        ? responseTimes.reduce((sum, time) => sum + time, 0) / responseTimes.length 
+        : 0;
+
+    return {
+        senderCount: senders.length,
+        senderStats,
+        avgResponseTime: avgResponseTime / (1000 * 60), // in minutes
+        hasMultipleSenders: senders.length > 2
+    };
+}
+
+function generateStatistics(messages) {
+    const totalMessages = messages.length;
+    const dateRange = {
+        start: new Date(Math.min(...messages.map(msg => msg.timestamp))),
+        end: new Date(Math.max(...messages.map(msg => msg.timestamp)))
+    };
+    
+    const daysDiff = (dateRange.end - dateRange.start) / (1000 * 60 * 60 * 24);
+    const avgMessagesPerDay = totalMessages / Math.max(daysDiff, 1);
+
+    const hourDistribution = {};
+    messages.forEach(msg => {
+        const hour = msg.timestamp.getHours();
+        hourDistribution[hour] = (hourDistribution[hour] || 0) + 1;
+    });
+
+    const mostActiveHour = Object.keys(hourDistribution).reduce((a, b) => 
+        hourDistribution[a] > hourDistribution[b] ? a : b
+    );
+
+    return {
+        totalMessages,
+        dateRange,
+        daysDiff: Math.round(daysDiff),
+        avgMessagesPerDay: Math.round(avgMessagesPerDay),
+        mostActiveHour: parseInt(mostActiveHour),
+        hourDistribution
+    };
+}
+
+function calculateRiskScore(timeAnalysis, contentAnalysis, behaviorAnalysis) {
+    let score = 0;
+    const factors = [];
+
+    // Time-based risk factors
+    if (timeAnalysis.suspiciousTimePattern) {
+        score += 25;
+        factors.push('Actividad excesiva en horarios nocturnos');
+    }
+
+    if (timeAnalysis.earlyMorningCount > 5) {
+        score += 15;
+        factors.push('Mensajes frecuentes en madrugada');
+    }
+
+    // Content-based risk factors
+    if (contentAnalysis.hasSuspiciousContent) {
+        score += 30;
+        factors.push('Contenido con palabras sospechosas');
+    }
+
+    if (contentAnalysis.hasRomanticContent) {
+        score += 20;
+        factors.push('Contenido romántico detectado');
+    }
+
+    if (contentAnalysis.hasEvasivePatterns) {
+        score += 15;
+        factors.push('Patrones de evasión en respuestas');
+    }
+
+    // Behavior-based risk factors
+    if (behaviorAnalysis.avgResponseTime < 2) {
+        score += 10;
+        factors.push('Tiempo de respuesta muy rápido');
+    }
+
+    if (behaviorAnalysis.hasMultipleSenders) {
+        score += 5;
+        factors.push('Múltiples participantes en la conversación');
+    }
+
+    return {
+        score: Math.min(score, 100),
+        level: getRiskLevel(score),
+        factors
+    };
+}
+
+function getRiskLevel(score) {
+    if (score >= 70) return { level: 'ALTO', color: '#ee5a52', description: 'Se detectaron múltiples señales de alerta' };
+    if (score >= 40) return { level: 'MEDIO', color: '#ff6b35', description: 'Algunas señales requieren atención' };
+    if (score >= 20) return { level: 'BAJO', color: '#ffa502', description: 'Pocas señales de alerta detectadas' };
+    return { level: 'NORMAL', color: '#26de81', description: 'No se detectaron señales preocupantes' };
+}
+
+function displayResults(analysis) {
+    if (analysis.error) {
+        showNotification(analysis.error, 'error');
+        hideLoadingAnimation();
+        return;
+    }
+
+    hideLoadingAnimation();
+    resultsContainer.style.display = 'block';
+
+    // Update risk level
+    const riskInfo = analysis.riskScore;
+    const riskValueElement = document.getElementById('riskValue');
+    riskValueElement.textContent = `${riskInfo.level} (${riskInfo.score}%)`;
+    riskValueElement.style.background = riskInfo.level.color;
+
+    // Update warning signals
+    const warningSignals = document.getElementById('warningSignals');
+    warningSignals.innerHTML = '';
+    if (riskInfo.factors.length === 0) {
+        warningSignals.innerHTML = '<li style="color: #26de81;">No se detectaron señales de alerta significativas</li>';
+    } else {
+        riskInfo.factors.forEach(factor => {
+            const li = document.createElement('li');
+            li.innerHTML = `<i class="fas fa-exclamation-triangle" style="color: var(--primary); margin-right: 8px;"></i>${factor}`;
+            warningSignals.appendChild(li);
+        });
+    }
+
+    // Update statistics
+    const statistics = document.getElementById('statistics');
+    statistics.innerHTML = `
+        <div class="stat-item">
+            <strong>Total de mensajes:</strong> ${analysis.statistics.totalMessages}
+        </div>
+        <div class="stat-item">
+            <strong>Período:</strong> ${analysis.statistics.daysDiff} días
+        </div>
+        <div class="stat-item">
+            <strong>Mensajes por día:</strong> ${analysis.statistics.avgMessagesPerDay}
+        </div>
+        <div class="stat-item">
+            <strong>Hora más activa:</strong> ${analysis.statistics.mostActiveHour}:00
+        </div>
+    `;
+
+    // Update time patterns
+    const timePatterns = document.getElementById('timePatterns');
+    timePatterns.innerHTML = `
+        <div class="pattern-item">
+            <strong>Mensajes nocturnos:</strong> ${analysis.timeAnalysis.lateNightCount}
+        </div>
+        <div class="pattern-item">
+            <strong>Mensajes de madrugada:</strong> ${analysis.timeAnalysis.earlyMorningCount}
+        </div>
+        <div class="pattern-item">
+            <strong>Actividad fin de semana:</strong> ${analysis.timeAnalysis.weekendCount}
+        </div>
+    `;
+
+    // Update content analysis
+    const contentAnalysis = document.getElementById('contentAnalysis');
+    contentAnalysis.innerHTML = `
+        <div class="content-item">
+            <strong>Contenido sospechoso:</strong> ${analysis.contentAnalysis.suspiciousContent} menciones
+        </div>
+        <div class="content-item">
+            <strong>Contenido romántico:</strong> ${analysis.contentAnalysis.romanticContent} menciones
+        </div>
+        <div class="content-item">
+            <strong>Patrones evasivos:</strong> ${analysis.contentAnalysis.evasiveContent} menciones
+        </div>
+    `;
+
+    // Scroll to results
+    resultsContainer.scrollIntoView({ behavior: 'smooth' });
+    
+    showNotification('Análisis completado exitosamente', 'success');
+}
+
+function showLoadingAnimation() {
+    const uploadContent = uploadArea.querySelector('.upload-content');
+    uploadContent.innerHTML = `
+        <div class="loading-animation">
+            <i class="fas fa-spinner fa-spin upload-icon" style="color: var(--primary);"></i>
+            <h3>Analizando chat...</h3>
+            <p id="loading-status">Procesando mensajes...</p>
+            <div class="progress-bar">
+                <div class="progress-fill" style="animation: progress 3s ease-in-out infinite;"></div>
+            </div>
+        </div>
+    `;
+
+    // Update loading status
+    const statuses = [
+        'Procesando mensajes...',
+        'Analizando patrones temporales...',
+        'Detectando contenido sospechoso...',
+        'Evaluando comportamiento...',
+        'Generando reporte final...'
+    ];
+
+    let statusIndex = 0;
+    const statusElement = document.getElementById('loading-status');
+    const statusInterval = setInterval(() => {
+        statusIndex = (statusIndex + 1) % statuses.length;
+        if (statusElement) {
+            statusElement.textContent = statuses[statusIndex];
+        } else {
+            clearInterval(statusInterval);
+        }
+    }, 600);
+
+    // Store interval to clear later
+    uploadArea.dataset.statusInterval = statusInterval;
+}
+
+function hideLoadingAnimation() {
+    // Clear status interval
+    if (uploadArea.dataset.statusInterval) {
+        clearInterval(parseInt(uploadArea.dataset.statusInterval));
+    }
+
+    const uploadContent = uploadArea.querySelector('.upload-content');
+    uploadContent.innerHTML = `
+        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+        <h3>Arrastra tu chat de WhatsApp aquí</h3>
+        <p>O haz clic para seleccionar archivo</p>
+        <input type="file" id="fileInput" accept=".txt" style="display: none;">
+        <button class="btn btn-upload" onclick="document.getElementById('fileInput').click()">
+            Seleccionar Archivo
+        </button>
+    `;
+
+    // Re-initialize file input
+    fileInput = document.getElementById('fileInput');
+    fileInput.addEventListener('change', handleFileSelect);
+}
+
+function showNotification(message, type = 'info') {
+    // Remove existing notifications
+    const existingNotifications = document.querySelectorAll('.notification');
+    existingNotifications.forEach(notification => notification.remove());
+
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    
+    const colors = {
+        success: '#26de81',
+        error: '#ee5a52',
+        warning: '#ffa502',
+        info: '#3b82f6'
+    };
+
+    const icons = {
+        success: 'fas fa-check-circle',
+        error: 'fas fa-exclamation-circle',
+        warning: 'fas fa-exclamation-triangle',
+        info: 'fas fa-info-circle'
+    };
+
+    notification.innerHTML = `
+        <i class="${icons[type] || icons.info}"></i>
+        <span>${message}</span>
+        <button class="notification-close">×</button>
+    `;
+
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${colors[type] || colors.info};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        max-width: 400px;
+        animation: slideInRight 0.3s ease-out;
+    `;
+
+    const closeButton = notification.querySelector('.notification-close');
+    closeButton.style.cssText = `
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        font-size: 18px;
+        padding: 0;
+        margin-left: 10px;
+        opacity: 0.8;
+    `;
+
+    closeButton.addEventListener('click', () => {
+        notification.style.animation = 'slideOutRight 0.3s ease-in';
+        setTimeout(() => notification.remove(), 300);
+    });
+
+    document.body.appendChild(notification);
+
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.style.animation = 'slideOutRight 0.3s ease-in';
+            setTimeout(() => notification.remove(), 300);
+        }
+    }, 5000);
+}
+
+function handleScroll() {
+    const header = document.querySelector('.header');
+    if (window.scrollY > 100) {
+        header.style.background = 'rgba(255, 255, 255, 0.98)';
+        header.style.backdropFilter = 'blur(20px)';
+        header.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+    } else {
+        header.style.background = 'rgba(255, 255, 255, 0.95)';
+        header.style.boxShadow = 'none';
+    }
+}
+
+function setupAnimations() {
+    // Add CSS animations
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideOutRight {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+        }
+
+        @keyframes progress {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            100% { width: 100%; }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+
+        .stat-item, .pattern-item, .content-item {
+            margin-bottom: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .stat-item:last-child, .pattern-item:last-child, .content-item:last-child {
+            border-bottom: none;
+        }
+
+        .drag-over {
+            transform: scale(1.02);
+            transition: all 0.3s ease;
+        }
+
+        .loading-animation {
+            text-align: center;
+        }
+
+        .loading-animation .upload-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Initialize intersection observer for animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
+            }
+        });
+    }, observerOptions);
+
+    // Observe elements for animation
+    const animatedElements = document.querySelectorAll('.feature-card, .step');
+    animatedElements.forEach(el => observer.observe(el));
+}
+
+// Export functions for global access
+window.scrollToAnalyzer = scrollToAnalyzer;
+window.scrollToFeatures = scrollToFeatures;
