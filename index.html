@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ChillDetector - Descubre patrones sospechosos en conversaciones de WhatsApp. Detecta comportamientos infieles de manera inteligente y discreta.">
+    <meta name="keywords" content="detector infieles, WhatsApp, análisis conversaciones, comportamiento sospechoso, infidelidad">
+    <meta name="author" content="ChillDetector">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chilldetector.com/">
+    <meta property="og:title" content="ChillDetector - Detector de Infieles WhatsApp">
+    <meta property="og:description" content="Detecta patrones sospechosos en conversaciones de WhatsApp de manera inteligente y discreta.">
+    <meta property="og:image" content="https://chilldetector.com/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://chilldetector.com/">
+    <meta property="twitter:title" content="ChillDetector - Detector de Infieles WhatsApp">
+    <meta property="twitter:description" content="Detecta patrones sospechosos en conversaciones de WhatsApp de manera inteligente y discreta.">
+    <meta property="twitter:image" content="https://chilldetector.com/twitter-image.jpg">
+    
+    <title>ChillDetector - Detector de Infieles WhatsApp</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-search"></i>
+                    <span>ChillDetector</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#inicio" class="nav-link">Inicio</a></li>
+                    <li><a href="#como-funciona" class="nav-link">¿Cómo funciona?</a></li>
+                    <li><a href="#precios" class="nav-link">Precios</a></li>
+                    <li><a href="#contacto" class="nav-link">Contacto</a></li>
+                </ul>
+                <button class="nav-toggle" id="nav-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="inicio" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        Descubre la <span class="highlight">verdad</span> en tus conversaciones
+                        <br>de WhatsApp
+                    </h1>
+                    <p class="hero-description">
+                        ChillDetector analiza patrones de comportamiento sospechosos en conversaciones de WhatsApp 
+                        usando inteligencia artificial avanzada para detectar posibles signos de infidelidad.
+                    </p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" id="start-analysis">
+                            <i class="fas fa-rocket"></i>
+                            Iniciar Análisis
+                        </button>
+                        <button class="btn btn-secondary" id="demo-btn">
+                            <i class="fas fa-play"></i>
+                            Ver Demo
+                        </button>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">10,000+</span>
+                            <span class="stat-label">Análisis realizados</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">95%</span>
+                            <span class="stat-label">Precisión</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Confidencial</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="phone-mockup">
+                        <div class="phone-screen">
+                            <div class="whatsapp-header">
+                                <i class="fab fa-whatsapp"></i>
+                                <span>Analizando...</span>
+                            </div>
+                            <div class="analysis-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill"></div>
+                                </div>
+                                <span class="progress-text">Detectando patrones sospechosos...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features" id="como-funciona">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">¿Cómo funciona ChillDetector?</h2>
+                    <p class="section-subtitle">
+                        Nuestra tecnología de IA analiza múltiples indicadores para detectar comportamientos sospechosos
+                    </p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Patrones de Tiempo</h3>
+                        <p>Detecta cambios en horarios de actividad y tiempos de respuesta inusuales.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>Análisis de Conversaciones</h3>
+                        <p>Examina el contenido y tono de los mensajes para identificar señales de alerta.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-secret"></i>
+                        </div>
+                        <h3>Contactos Secretos</h3>
+                        <p>Identifica nuevos contactos y comunicaciones frecuentes con desconocidos.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Análisis de Frecuencia</h3>
+                        <p>Monitorea cambios en la frecuencia de mensajes y llamadas.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>100% Privado</h3>
+                        <p>Todos los análisis se realizan de forma local y segura.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h3>Reportes Detallados</h3>
+                        <p>Recibe informes completos con evidencias y patrones detectados.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How it Works Steps -->
+        <section class="steps">
+            <div class="container">
+                <h2 class="section-title">Proceso Simple en 3 Pasos</h2>
+                <div class="steps-container">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Exporta tus Chats</h3>
+                        <p>Exporta las conversaciones de WhatsApp que quieres analizar de forma segura.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Análisis IA</h3>
+                        <p>Nuestra inteligencia artificial analiza patrones y comportamientos sospechosos.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Recibe el Reporte</h3>
+                        <p>Obtén un reporte detallado con todos los hallazgos y evidencias encontradas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section class="pricing" id="precios">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Planes y Precios</h2>
+                    <p class="section-subtitle">
+                        Elige el plan que mejor se adapte a tus necesidades
+                    </p>
+                </div>
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <h3>Básico</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">9.99</span>
+                            <span class="period">/ análisis</span>
+                        </div>
+                        <ul class="features-list">
+                            <li><i class="fas fa-check"></i> 1 análisis completo</li>
+                            <li><i class="fas fa-check"></i> Hasta 1,000 mensajes</li>
+                            <li><i class="fas fa-check"></i> Reporte básico</li>
+                            <li><i class="fas fa-check"></i> Soporte por email</li>
+                        </ul>
+                        <button class="btn btn-outline">Comenzar</button>
+                    </div>
+                    <div class="pricing-card featured">
+                        <div class="popular-badge">Más Popular</div>
+                        <h3>Premium</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">19.99</span>
+                            <span class="period">/ análisis</span>
+                        </div>
+                        <ul class="features-list">
+                            <li><i class="fas fa-check"></i> 1 análisis completo</li>
+                            <li><i class="fas fa-check"></i> Mensajes ilimitados</li>
+                            <li><i class="fas fa-check"></i> Reporte detallado + gráficos</li>
+                            <li><i class="fas fa-check"></i> Análisis de medios</li>
+                            <li><i class="fas fa-check"></i> Soporte prioritario</li>
+                        </ul>
+                        <button class="btn btn-primary">Comenzar</button>
+                    </div>
+                    <div class="pricing-card">
+                        <h3>Profesional</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">49.99</span>
+                            <span class="period">/ mes</span>
+                        </div>
+                        <ul class="features-list">
+                            <li><i class="fas fa-check"></i> Análisis ilimitados</li>
+                            <li><i class="fas fa-check"></i> Mensajes ilimitados</li>
+                            <li><i class="fas fa-check"></i> Reportes avanzados</li>
+                            <li><i class="fas fa-check"></i> Análisis en tiempo real</li>
+                            <li><i class="fas fa-check"></i> API de integración</li>
+                            <li><i class="fas fa-check"></i> Soporte 24/7</li>
+                        </ul>
+                        <button class="btn btn-outline">Comenzar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="testimonials">
+            <div class="container">
+                <h2 class="section-title">Lo que dicen nuestros usuarios</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"ChillDetector me ayudó a descubrir patrones que jamás habría notado por mi cuenta. La precisión es impresionante."</p>
+                        <div class="testimonial-author">
+                            <strong>María G.</strong>
+                            <span>Usuaria verificada</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Una herramienta increíble. El reporte fue muy detallado y me dio la claridad que necesitaba."</p>
+                        <div class="testimonial-author">
+                            <strong>Carlos R.</strong>
+                            <span>Usuaria verificada</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Fácil de usar y completamente privado. Lo recomiendo totalmente para quien necesite respuestas."</p>
+                        <div class="testimonial-author">
+                            <strong>Ana L.</strong>
+                            <span>Usuaria verificada</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>¿Listo para descubrir la verdad?</h2>
+                    <p>Comienza tu análisis hoy y obtén respuestas claras en minutos.</p>
+                    <button class="btn btn-primary btn-large" id="start-analysis-cta">
+                        <i class="fas fa-rocket"></i>
+                        Comenzar Análisis Ahora
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" id="contacto">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-search"></i>
+                        <span>ChillDetector</span>
+                    </div>
+                    <p>Detecta patrones sospechosos en WhatsApp con inteligencia artificial avanzada.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Producto</h4>
+                    <ul>
+                        <li><a href="#como-funciona">¿Cómo funciona?</a></li>
+                        <li><a href="#precios">Precios</a></li>
+                        <li><a href="#">Características</a></li>
+                        <li><a href="#">Demo</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Soporte</h4>
+                    <ul>
+                        <li><a href="#">Centro de ayuda</a></li>
+                        <li><a href="#">Preguntas frecuentes</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                        <li><a href="#">Estado del servicio</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Política de privacidad</a></li>
+                        <li><a href="#">Términos de servicio</a></li>
+                        <li><a href="#">Política de cookies</a></li>
+                        <li><a href="#">Aviso legal</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ChillDetector. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="analysis-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Iniciar Análisis de ChillDetector</h3>
+                <button class="modal-close" id="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Para comenzar tu análisis, necesitamos que exportes tus conversaciones de WhatsApp:</p>
+                <ol>
+                    <li>Abre WhatsApp en tu teléfono</li>
+                    <li>Ve a la conversación que quieres analizar</li>
+                    <li>Toca los tres puntos (⋮) > Más > Exportar chat</li>
+                    <li>Selecciona "Sin archivos multimedia"</li>
+                    <li>Sube el archivo aquí</li>
+                </ol>
+                <div class="file-upload">
+                    <input type="file" id="chat-file" accept=".txt" hidden>
+                    <label for="chat-file" class="upload-label">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        Seleccionar archivo de chat
+                    </label>
+                </div>
+                <button class="btn btn-primary" id="analyze-btn" disabled>
+                    <i class="fas fa-search"></i>
+                    Analizar Conversación
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
