@@ -1,12 +1,12 @@
 {
-  "name": "cheat-detector",
+  "name": "chatscan",
   "version": "1.0.0",
-  "description": "CheatDetector - Análisis inteligente de chats de WhatsApp para detectar patrones de infidelidad",
+  "description": "ChatScan - Análisis inteligente de chats de WhatsApp para detectar patrones de infidelidad",
   "main": "index.html",
   "scripts": {
     "start": "serve -s . -l 3000",
     "dev": "serve -s . -l 3000 --live-reload",
-    "build": "echo 'Building CheatDetector...' && npm run lint && npm run minify",
+    "build": "echo 'Building ChatScan...' && npm run lint && npm run minify",
     "lint": "echo 'Linting files...'",
     "minify": "echo 'Minifying assets...'",
     "test": "echo 'No tests available yet'",
@@ -23,18 +23,18 @@
     "web"
   ],
   "author": {
-    "name": "CheatDetector Team",
-    "email": "contact@cheatdetector.com",
-    "url": "https://cheatdetector.com"
+    "name": "ChatScan Team",
+    "email": "contact@chatscan.com",
+    "url": "https://chatscan.com"
   },
   "license": "MIT",
-  "homepage": "https://cheatdetector.com",
+  "homepage": "https://chatscan.com",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cheatdetector/cheatdetector.git"
+    "url": "git+https://github.com/chatscan/chatscan.git"
   },
   "bugs": {
-    "url": "https://github.com/cheatdetector/cheatdetector/issues"
+    "url": "https://github.com/chatscan/chatscan/issues"
   },
   "devDependencies": {
     "serve": "^14.2.1"

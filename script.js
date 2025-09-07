@@ -1,4 +1,4 @@
-// CheatDetector JavaScript - Enhanced functionality for infidelity detection
+// ChatScan JavaScript - Enhanced functionality for infidelity detection
 
 // Smooth scroll functions
 function scrollToAnalyzer() {
