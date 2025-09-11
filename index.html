@@ -214,9 +214,35 @@
                     <!-- Hero Visual -->
                     <div class="flex justify-center lg:justify-end">
                         <div class="relative">
-                            <!-- Phone Mockup -->
-                            <div class="w-80 h-96 bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl p-4 shadow-2xl animate-float">
-                                <div class="w-full h-full bg-white rounded-2xl p-6 relative overflow-hidden">
+                            <!-- iPhone Mockup -->
+                            <div class="relative w-80 h-[600px] mx-auto">
+                                <!-- iPhone Frame -->
+                                <div class="absolute inset-0 bg-gradient-to-b from-gray-800 via-gray-900 to-black rounded-[50px] p-2 shadow-2xl animate-float">
+                                    <!-- Screen Bezel -->
+                                    <div class="w-full h-full bg-black rounded-[42px] p-1">
+                                        <!-- Screen -->
+                                        <div class="w-full h-full bg-white rounded-[36px] relative overflow-hidden">
+                                            <!-- Status Bar -->
+                                            <div class="flex justify-between items-center px-6 pt-4 pb-2">
+                                                <span class="text-black font-semibold text-sm">9:41</span>
+                                                <div class="flex items-center space-x-1">
+                                                    <div class="flex space-x-1">
+                                                        <div class="w-1 h-1 bg-black rounded-full"></div>
+                                                        <div class="w-1 h-1 bg-black rounded-full"></div>
+                                                        <div class="w-1 h-1 bg-black rounded-full"></div>
+                                                        <div class="w-1 h-1 bg-black rounded-full"></div>
+                                                    </div>
+                                                    <svg class="w-4 h-4 text-green-500 fill-current" viewBox="0 0 24 24">
+                                                        <path d="M2 17h20v2H2zm1.15-4.05L4 11.47l.85 1.48c.3.52.91.85 1.57.85H16c.55 0 1-.45 1-1V9c0-.55-.45-1-1-1H8.5L7 5.5c-.28-.45-.75-.7-1.26-.7C4.85 4.8 4 5.65 4 6.74c0 .36.1.7.28 1.01L3.15 12.95z"/>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Dynamic Island -->
+                                            <div class="absolute top-2 left-1/2 transform -translate-x-1/2 w-28 h-7 bg-black rounded-full"></div>
+                                            
+                                            <!-- Screen Content -->
+                                            <div class="px-4 pt-2 pb-6 h-full">
                                     <!-- Chat Interface -->
                                     <div class="space-y-4">
                                         <div class="flex items-center space-x-3 pb-4 border-b border-gray-100">
@@ -252,13 +278,18 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    
-                                    <!-- Analysis Overlay -->
-                                    <div class="absolute bottom-4 left-4 right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white p-3 rounded-lg">
-                                        <div class="flex items-center justify-between">
-                                            <span class="text-sm font-semibold">🚨 Nivel de Riesgo</span>
-                                            <span class="text-sm bg-red-500/90 px-3 py-1 rounded-full font-bold animate-pulse">ALTO</span>
+                                            </div>
+                                            
+                                            <!-- Analysis Overlay -->
+                                            <div class="absolute bottom-8 left-4 right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white p-3 rounded-lg shadow-lg">
+                                                <div class="flex items-center justify-between">
+                                                    <span class="text-sm font-semibold">🚨 Nivel de Riesgo</span>
+                                                    <span class="text-sm bg-red-500/90 px-3 py-1 rounded-full font-bold animate-pulse">ALTO</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Home Indicator -->
+                                            <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-black/20 rounded-full"></div>
                                         </div>
                                     </div>
                                 </div>
