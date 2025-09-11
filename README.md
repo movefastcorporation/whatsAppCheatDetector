@@ -1,4 +1,4 @@
-# ChillDetector - Detector de Infieles WhatsApp
+# CheatDetector - Detector de Infieles WhatsApp
 
 Una landing page moderna y responsive para un servicio que detecta patrones sospechosos en conversaciones de WhatsApp usando inteligencia artificial avanzada.
 
