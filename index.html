@@ -1,267 +1,860 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChatScan - Descubre la Infidelidad en WhatsApp</title>
-    <meta name="description" content="Analiza chats de WhatsApp para detectar posibles signos de infidelidad. Herramienta gratuita y confidencial.">
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>ChatScan - Análisis Seguro de Chats de WhatsApp</title>
+    <meta name="description" content="Analiza chats de WhatsApp de forma 100% segura y confidencial. Detecta patrones sospechosos con IA avanzada.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chatscan.com">
+    <meta property="og:title" content="ChatScan - Análisis Seguro de Chats con IA">
+    <meta property="og:description" content="Análisis confidencial y seguro de conversaciones de WhatsApp con inteligencia artificial avanzada.">
+    <meta property="og:image" content="https://chatscan.com/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://chatscan.com">
+    <meta property="twitter:title" content="ChatScan - Análisis Seguro de Chats con IA">
+    <meta property="twitter:description" content="Análisis confidencial y seguro de conversaciones de WhatsApp.">
+    <meta property="twitter:image" content="https://chatscan.com/og-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        },
+                        secondary: {
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                        },
+                        accent: {
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-soft': 'pulse-soft 2s ease-in-out infinite',
+                        'gradient': 'gradient 15s ease infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+        @keyframes pulse-soft {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            20% { transform: scale(1.1); }
+            40% { transform: scale(1.05); }
+        }
+        @keyframes reveal {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-heartbeat {
+            animation: heartbeat 2s infinite;
+        }
+        .animate-reveal {
+            animation: reveal 0.8s ease-out;
+        }
+        .shadow-glow {
+            box-shadow: 0 0 30px rgba(236, 72, 153, 0.3);
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .animate-shimmer {
+            animation: shimmer 2s infinite;
+        }
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .bg-gradient-animated {
+            background: linear-gradient(-45deg, #3b82f6, #8b5cf6, #f59e0b, #ef4444);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+    </style>
 </head>
-<body>
-    <div class="background-animation"></div>
+<body class="font-sans antialiased bg-white">
     
     <!-- Header -->
-    <header class="header">
-        <nav class="nav">
-            <div class="nav-logo">
-                <i class="fas fa-search"></i>
-                <span>ChatScan</span>
+    <header class="fixed top-0 w-full bg-white/95 backdrop-blur-md border-b border-gray-100 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" role="navigation" aria-label="Navegación principal">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-heart-broken text-white text-sm" aria-hidden="true"></i>
+                    </div>
+                    <span class="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                        ChatScan
+                    </span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#security" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium">
+                        Seguridad
+                    </a>
+                    <a href="#how-it-works" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium">
+                        Cómo Funciona
+                    </a>
+                    <a href="#analyzer" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium">
+                        Analizador
+                    </a>
+                    <button onclick="scrollToAnalyzer()" class="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-6 py-2 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200">
+                        Empezar Análisis
+                    </button>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="Abrir menú">
+                    <i class="fas fa-bars text-gray-600"></i>
+                </button>
             </div>
-            <div class="nav-links">
-                <a href="#features">Características</a>
-                <a href="#how-it-works">Cómo Funciona</a>
-                <a href="#analyzer">Analizador</a>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-100 py-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="#security" class="text-gray-600 hover:text-blue-600 transition-colors px-4 py-2">Seguridad</a>
+                    <a href="#how-it-works" class="text-gray-600 hover:text-blue-600 transition-colors px-4 py-2">Cómo Funciona</a>
+                    <a href="#analyzer" class="text-gray-600 hover:text-blue-600 transition-colors px-4 py-2">Analizador</a>
+                    <button onclick="scrollToAnalyzer()" class="mx-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-6 py-3 rounded-full font-semibold">
+                        Empezar Análisis
+                    </button>
+                </div>
             </div>
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1 class="hero-title">
-                    <span class="gradient-text">Descubre la Verdad</span>
-                    <br>en los Chats de WhatsApp
-                </h1>
-                <p class="hero-subtitle">
-                    Analiza conversaciones de WhatsApp con inteligencia artificial para detectar 
-                    patrones sospechosos y posibles signos de infidelidad de manera confidencial.
-                </p>
-                <div class="hero-buttons">
-                    <button class="btn btn-primary" onclick="scrollToAnalyzer()">
-                        <i class="fas fa-play"></i>
-                        Analizar Ahora
-                    </button>
-                    <button class="btn btn-secondary" onclick="scrollToFeatures()">
-                        <i class="fas fa-info-circle"></i>
-                        Más Información
-                    </button>
-                </div>
-            </div>
-            <div class="hero-image">
-                <div class="phone-mockup">
-                    <div class="phone-screen">
-                        <div class="chat-preview">
-                            <div class="chat-message suspicious">
-                                <span class="time">22:30</span>
-                                <span class="text">Tengo que trabajar tarde otra vez... 😅</span>
-                                <div class="warning-indicator">⚠️</div>
-                            </div>
-                            <div class="chat-message normal">
-                                <span class="time">22:45</span>
-                                <span class="text">Ok, cuídate mucho ❤️</span>
-                            </div>
-                            <div class="chat-message suspicious">
-                                <span class="time">01:15</span>
-                                <span class="text">Ya terminé, me voy a casa</span>
-                                <div class="warning-indicator">⚠️</div>
-                            </div>
+    <main class="pt-16">
+        <!-- Hero Section -->
+        <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-orange-50">
+            <!-- Animated Background -->
+            <div class="absolute inset-0 bg-gradient-animated opacity-5"></div>
+            
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <!-- Hero Content -->
+                    <div class="text-center lg:text-left">
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black mb-8 leading-tight animate-reveal">
+                            <span class="bg-gradient-to-r from-red-500 via-pink-500 to-purple-600 bg-clip-text text-transparent animate-heartbeat">
+                                ¿Qué Ocultan tus Chats?
+                            </span>
+                        </h1>
+                        
+                        <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                            <strong class="text-gray-900">100% confidencial y seguro.</strong> 
+                            Detecta patrones sospechosos con IA avanzada. 
+                            Tus datos nunca abandonan tu dispositivo.
+                        </p>
+                        
+                        <!-- CTAs -->
+                        <div class="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start mb-12">
+                            <button onclick="scrollToAnalyzer()" class="group relative overflow-hidden bg-gradient-to-r from-blue-500 to-purple-500 text-white px-12 py-4 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+                                <span class="relative z-10 flex items-center justify-center space-x-3">
+                                    <i class="fas fa-shield-check text-xl"></i>
+                                    <span>Subir Chat Seguro</span>
+                                </span>
+                                <div class="absolute inset-0 bg-gradient-to-r from-purple-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            </button>
+                            
+                            <button onclick="showQRScanner()" class="group border-2 border-gray-300 text-gray-700 px-12 py-4 rounded-2xl font-bold text-lg hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 transform hover:scale-105 transition-all duration-300">
+                                <span class="flex items-center justify-center space-x-3">
+                                    <i class="fas fa-qrcode text-xl"></i>
+                                    <span>Escanear QR</span>
+                                </span>
+                            </button>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="container">
-            <h2 class="section-title">¿Por Qué ChatScan?</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <h3>Inteligencia Artificial</h3>
-                    <p>Algoritmos avanzados analizan patrones de comportamiento, horarios inusuales y cambios en el lenguaje.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>100% Confidencial</h3>
-                    <p>Tus datos nunca se almacenan. Todo el análisis se realiza localmente en tu dispositivo.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Análisis Detallado</h3>
-                    <p>Reportes completos con métricas, gráficos y indicadores de riesgo específicos.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <h3>Patrones Temporales</h3>
-                    <p>Detecta actividad sospechosa en horarios inusuales y cambios en rutinas de comunicación.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-heart-broken"></i>
-                    </div>
-                    <h3>Señales de Alerta</h3>
-                    <p>Identifica frases, emojis y comportamientos típicos asociados con infidelidad.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Fácil de Usar</h3>
-                    <p>Interfaz intuitiva que funciona en cualquier dispositivo. Solo sube el chat y obtén resultados.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section id="how-it-works" class="how-it-works">
-        <div class="container">
-            <h2 class="section-title">Cómo Funciona</h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h3>Exportar Chat</h3>
-                        <p>Exporta el chat de WhatsApp que deseas analizar desde la configuración de la conversación.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3>Subir Archivo</h3>
-                        <p>Arrastra y suelta el archivo .txt del chat en nuestra herramienta de análisis segura.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>Análisis Automático</h3>
-                        <p>La IA analiza patrones, frecuencia, horarios y contenido para detectar comportamientos sospechosos.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h3>Recibe Resultados</h3>
-                        <p>Obtén un reporte detallado con indicadores de riesgo y análisis de comportamiento.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Analyzer Section -->
-    <section id="analyzer" class="analyzer">
-        <div class="container">
-            <h2 class="section-title">Analizador de Chats</h2>
-            <div class="analyzer-container">
-                <div class="upload-area" id="uploadArea">
-                    <div class="upload-content">
-                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
-                        <h3>Arrastra tu chat de WhatsApp aquí</h3>
-                        <p>O haz clic para seleccionar archivo</p>
-                        <input type="file" id="fileInput" accept=".txt" style="display: none;">
-                        <button class="btn btn-upload" onclick="document.getElementById('fileInput').click()">
-                            Seleccionar Archivo
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="results-container" id="resultsContainer" style="display: none;">
-                    <div class="results-header">
-                        <h3>Resultados del Análisis</h3>
-                        <div class="risk-level" id="riskLevel">
-                            <span class="risk-label">Nivel de Riesgo:</span>
-                            <span class="risk-value" id="riskValue">Calculando...</span>
+                        
+                        <!-- Trust Indicators -->
+                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-8 text-sm text-gray-500">
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-lock text-green-500"></i>
+                                <span>Encriptado end-to-end</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-user-shield text-blue-500"></i>
+                                <span>Procesamiento local</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-trash text-red-500"></i>
+                                <span>Datos auto-eliminados</span>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="results-grid">
-                        <div class="result-card">
-                            <h4><i class="fas fa-exclamation-triangle"></i> Señales de Alerta</h4>
-                            <ul id="warningSignals"></ul>
-                        </div>
-                        
-                        <div class="result-card">
-                            <h4><i class="fas fa-chart-bar"></i> Estadísticas</h4>
-                            <div id="statistics"></div>
-                        </div>
-                        
-                        <div class="result-card">
-                            <h4><i class="fas fa-clock"></i> Patrones Temporales</h4>
-                            <div id="timePatterns"></div>
-                        </div>
-                        
-                        <div class="result-card">
-                            <h4><i class="fas fa-comments"></i> Análisis de Contenido</h4>
-                            <div id="contentAnalysis"></div>
+                    <!-- Hero Visual -->
+                    <div class="flex justify-center lg:justify-end">
+                        <div class="relative">
+                            <!-- Phone Mockup -->
+                            <div class="w-80 h-96 bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl p-4 shadow-2xl animate-float">
+                                <div class="w-full h-full bg-white rounded-2xl p-6 relative overflow-hidden">
+                                    <!-- Chat Interface -->
+                                    <div class="space-y-4">
+                                        <div class="flex items-center space-x-3 pb-4 border-b border-gray-100">
+                                            <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                                                <i class="fab fa-whatsapp text-white"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="font-semibold text-gray-900">Análisis IA</h4>
+                                                <p class="text-xs text-gray-500">Procesando...</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Chat Messages -->
+                                        <div class="space-y-3">
+                                            <div class="bg-red-50 border border-red-200 rounded-lg p-3 relative">
+                                                <p class="text-sm text-gray-700">Trabajo hasta tarde otra vez... 😅</p>
+                                                <span class="text-xs text-gray-500">22:30</span>
+                                                <div class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse-soft">
+                                                    <i class="fas fa-exclamation text-white text-xs"></i>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="bg-gray-50 rounded-lg p-3">
+                                                <p class="text-sm text-gray-700">Ok, cuídate mucho ❤️</p>
+                                                <span class="text-xs text-gray-500">22:45</span>
+                                            </div>
+                                            
+                                            <div class="bg-red-50 border border-red-200 rounded-lg p-3 relative">
+                                                <p class="text-sm text-gray-700">Ya terminé, voy para casa</p>
+                                                <span class="text-xs text-gray-500">01:15</span>
+                                                <div class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse-soft">
+                                                    <i class="fas fa-exclamation text-white text-xs"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Analysis Overlay -->
+                                    <div class="absolute bottom-4 left-4 right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white p-3 rounded-lg">
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-sm font-semibold">Nivel de Riesgo</span>
+                                            <span class="text-sm bg-white/20 px-2 py-1 rounded">Alto</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Security Badge -->
+                            <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-2xl shadow-xl border border-gray-100">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-shield-check text-green-600"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">100% Seguro</p>
+                                        <p class="text-xs text-gray-500">Datos encriptados</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Warning Section -->
-    <section class="warning">
-        <div class="container">
-            <div class="warning-content">
-                <i class="fas fa-info-circle"></i>
-                <div>
-                    <h3>Importante</h3>
-                    <p>Esta herramienta es solo para fines informativos. Los resultados no constituyen evidencia legal. 
-                    Recomendamos comunicación abierta y honesta en las relaciones. Si tienes dudas serias, 
-                    considera buscar ayuda profesional.</p>
+        <!-- Security Trust Section -->
+        <section id="security" class="py-24 bg-gradient-to-r from-blue-600 to-purple-600 text-white relative overflow-hidden">
+            <div class="absolute inset-0 bg-black/10"></div>
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl sm:text-4xl font-bold mb-6">
+                        <i class="fas fa-shield-alt text-4xl mr-4"></i>
+                        Tus Chats Están 100% Seguros
+                    </h2>
+                    <p class="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
+                        Procesamiento completamente local. Encriptación extrema. 
+                        Auto-eliminación automática. Tu privacidad es nuestra prioridad absoluta.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center p-8 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
+                        <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-lock text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Encriptación Extrema</h3>
+                        <p class="text-blue-100">Todos los datos se procesan con encriptación end-to-end. Imposible de interceptar.</p>
+                    </div>
+                    
+                    <div class="text-center p-8 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
+                        <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-desktop text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Procesamiento Local</h3>
+                        <p class="text-blue-100">Todo el análisis ocurre en tu dispositivo. Tus chats nunca salen de tu computadora.</p>
+                    </div>
+                    
+                    <div class="text-center p-8 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
+                        <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-trash-alt text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Auto-Eliminación</h3>
+                        <p class="text-blue-100">Los archivos se eliminan automáticamente después del análisis. Cero rastros.</p>
+                    </div>
+                </div>
+                
+                <!-- Trust Stats -->
+                <div class="mt-16 text-center">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        <div>
+                            <div class="text-3xl font-bold text-green-300">0</div>
+                            <div class="text-blue-100">Datos comprometidos</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="py-24 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-20">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
+                        Cómo Funciona
+                    </h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                        <strong>Exporta • Sube • Analiza • Recibe Resultados</strong>
+                        <br>Proceso simple y completamente seguro en 4 pasos
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Step 1 -->
+                    <div class="relative group">
+                        <div class="text-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 group-hover:border-blue-200">
+                            <div class="relative mb-8">
+                                <div class="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-500 rounded-3xl flex items-center justify-center mx-auto transform group-hover:scale-110 transition-transform duration-300">
+                                    <span class="text-3xl font-black text-white">1</span>
+                                </div>
+                                <div class="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-export text-white text-sm"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-4">Exportar Chat</h3>
+                            <p class="text-gray-600 leading-relaxed">Desde WhatsApp, exporta la conversación que quieres analizar como archivo .txt</p>
+                        </div>
+                        
+                        <!-- Connector Arrow -->
+                        <div class="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2">
+                            <div class="w-8 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500"></div>
+                            <div class="absolute right-0 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-purple-500 rotate-45"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2 -->
+                    <div class="relative group">
+                        <div class="text-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 group-hover:border-green-200">
+                            <div class="relative mb-8">
+                                <div class="w-24 h-24 bg-gradient-to-r from-green-500 to-blue-500 rounded-3xl flex items-center justify-center mx-auto transform group-hover:scale-110 transition-transform duration-300">
+                                    <span class="text-3xl font-black text-white">2</span>
+                                </div>
+                                <div class="absolute -top-2 -right-2 w-8 h-8 bg-orange-400 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-upload text-white text-sm"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-4">Subir Seguro</h3>
+                            <p class="text-gray-600 leading-relaxed">Arrastra el archivo o escanea QR. Procesamiento 100% local y encriptado</p>
+                        </div>
+                        
+                        <div class="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2">
+                            <div class="w-8 h-0.5 bg-gradient-to-r from-green-500 to-blue-500"></div>
+                            <div class="absolute right-0 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-blue-500 rotate-45"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3 -->
+                    <div class="relative group">
+                        <div class="text-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 group-hover:border-purple-200">
+                            <div class="relative mb-8">
+                                <div class="w-24 h-24 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl flex items-center justify-center mx-auto transform group-hover:scale-110 transition-transform duration-300">
+                                    <span class="text-3xl font-black text-white">3</span>
+                                </div>
+                                <div class="absolute -top-2 -right-2 w-8 h-8 bg-red-400 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-brain text-white text-sm"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-4">Análisis IA</h3>
+                            <p class="text-gray-600 leading-relaxed">Algoritmos avanzados detectan patrones, horarios y comportamientos sospechosos</p>
+                        </div>
+                        
+                        <div class="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2">
+                            <div class="w-8 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500"></div>
+                            <div class="absolute right-0 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-pink-500 rotate-45"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 4 -->
+                    <div class="relative group">
+                        <div class="text-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 group-hover:border-orange-200">
+                            <div class="relative mb-8">
+                                <div class="w-24 h-24 bg-gradient-to-r from-orange-500 to-red-500 rounded-3xl flex items-center justify-center mx-auto transform group-hover:scale-110 transition-transform duration-300">
+                                    <span class="text-3xl font-black text-white">4</span>
+                                </div>
+                                <div class="absolute -top-2 -right-2 w-8 h-8 bg-green-400 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-chart-bar text-white text-sm"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-4">Resultados</h3>
+                            <p class="text-gray-600 leading-relaxed">Reporte detallado con indicadores de riesgo y análisis de comportamiento</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CTA Below Steps -->
+                <div class="text-center mt-16">
+                    <button onclick="scrollToAnalyzer()" class="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-12 py-4 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+                        <span class="flex items-center justify-center space-x-3">
+                            <i class="fas fa-rocket"></i>
+                            <span>Comenzar Análisis Ahora</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analyzer Section -->
+        <section id="analyzer" class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
+                        Analizador de Chats
+                    </h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                        Elige tu método preferido: subir archivo directamente o escanear código QR desde tu móvil
+                    </p>
+                </div>
+                
+                <div class="max-w-4xl mx-auto">
+                    <div class="grid md:grid-cols-2 gap-12">
+                        <!-- Upload Method -->
+                        <div class="relative group">
+                            <div class="bg-gradient-to-br from-blue-50 to-purple-50 p-8 rounded-3xl border-2 border-dashed border-gray-300 hover:border-blue-400 transition-all duration-300 text-center group-hover:shadow-xl">
+                                <div class="mb-8">
+                                    <div class="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6 transform group-hover:scale-110 transition-transform duration-300">
+                                        <i class="fas fa-cloud-upload-alt text-3xl text-white"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Subir Archivo</h3>
+                                    <p class="text-gray-600 mb-8">Arrastra y suelta tu archivo .txt de WhatsApp aquí</p>
+                                </div>
+                                
+                                <div class="space-y-4">
+                                    <input type="file" id="fileInput" accept=".txt" class="hidden" aria-label="Seleccionar archivo de chat">
+                                    <button onclick="document.getElementById('fileInput').click()" class="w-full bg-gradient-to-r from-red-500 to-pink-500 text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300 pulse">
+                                        <span class="flex items-center justify-center space-x-3">
+                                            <i class="fas fa-upload"></i>
+                                            <span>Subir Chat</span>
+                                        </span>
+                                    </button>
+                                    
+                                    <div class="flex items-center justify-center space-x-4 text-sm text-gray-500">
+                                        <div class="flex items-center space-x-2">
+                                            <i class="fas fa-lock text-green-500"></i>
+                                            <span>Seguro</span>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <i class="fas fa-zap text-yellow-500"></i>
+                                            <span>Rápido</span>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <i class="fas fa-trash text-red-500"></i>
+                                            <span>Auto-elimina</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- QR Method - REDESIGNED FOR MAXIMUM IMPACT -->
+                        <div class="relative group">
+                            <div class="bg-gradient-to-br from-red-50 via-pink-50 to-purple-50 p-8 rounded-3xl border-2 border-dashed border-pink-300 hover:border-red-400 transition-all duration-300 text-center group-hover:shadow-2xl shadow-glow relative overflow-hidden">
+                                <!-- Animated background effect -->
+                                <div class="absolute inset-0 bg-gradient-to-r from-red-100/30 via-pink-100/30 to-purple-100/30 animate-pulse"></div>
+                                
+                                <div class="relative z-10 mb-8">
+                                    <!-- Pulsing icon with glow effect -->
+                                    <div class="w-24 h-24 bg-gradient-to-r from-red-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6 transform group-hover:scale-110 transition-transform duration-300 animate-heartbeat shadow-glow">
+                                        <i class="fas fa-mobile-alt text-4xl text-white"></i>
+                                    </div>
+                                    
+                                    <!-- Attention-grabbing title -->
+                                    <h3 class="text-3xl font-black text-gray-900 mb-4 animate-pulse">
+                                        <span class="bg-gradient-to-r from-red-500 to-pink-500 bg-clip-text text-transparent">💥 ESCANEO INSTANTÁNEO</span>
+                                    </h3>
+                                    
+                                    <!-- Compelling copy with urgency -->
+                                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-4 border border-pink-200 mb-6">
+                                        <p class="text-lg text-gray-700 font-semibold mb-2">
+                                            <span class="text-red-600 text-xl">🔥 MÉTODO MÁS RÁPIDO</span>
+                                        </p>
+                                        <p class="text-gray-600">
+                                            <strong class="text-pink-600">⚡ 30 segundos</strong> para obtener el reporte<br>
+                                            <strong class="text-purple-600">🔒 100% Anónimo</strong> • Sin instalaciones
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Enhanced QR Code Display -->
+                                <div id="qr-container" class="relative mb-8">
+                                    <div class="w-56 h-56 bg-white border-4 border-pink-300 rounded-3xl mx-auto flex items-center justify-center shadow-xl relative overflow-hidden">
+                                        <!-- Animated border effect -->
+                                        <div class="absolute inset-0 bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 rounded-3xl opacity-20 animate-spin" style="animation-duration: 3s;"></div>
+                                        <div class="absolute inset-1 bg-white rounded-2xl"></div>
+                                        
+                                        <div class="relative z-10 text-center">
+                                            <i class="fas fa-qrcode text-7xl text-pink-400 mb-4 animate-pulse"></i>
+                                            <p class="text-sm font-bold text-pink-600">👆 ¡Genera tu QR!</p>
+                                            <p class="text-xs text-gray-500">Escanea desde tu móvil</p>
+                                        </div>
+                                        
+                                        <!-- Pulse effect overlay -->
+                                        <div class="absolute inset-0 bg-pink-400/10 rounded-3xl animate-ping"></div>
+                                    </div>
+                                    
+                                    <!-- Floating indicators -->
+                                    <div class="absolute -top-4 -right-4 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold animate-bounce">
+                                        ¡NUEVO!
+                                    </div>
+                                    <div class="absolute -bottom-4 -left-4 bg-pink-500 text-white px-3 py-1 rounded-full text-xs font-bold animate-pulse">
+                                        GRATIS
+                                    </div>
+                                </div>
+                                
+                                <!-- Enhanced CTA Button -->
+                                <button onclick="generateQR()" class="w-full bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 text-white px-8 py-5 rounded-2xl font-black text-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 animate-pulse relative overflow-hidden group">
+                                    <!-- Button glow effect -->
+                                    <div class="absolute inset-0 bg-gradient-to-r from-pink-400 to-red-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
+                                    
+                                    <span class="relative z-10 flex items-center justify-center space-x-4">
+                                        <i class="fas fa-qrcode text-2xl animate-spin" style="animation-duration: 2s;"></i>
+                                        <span>🚀 GENERAR QR AHORA</span>
+                                        <i class="fas fa-arrow-right animate-bounce"></i>
+                                    </span>
+                                    
+                                    <!-- Shimmer effect -->
+                                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 animate-shimmer"></div>
+                                </button>
+                                
+                                <!-- Trust badges -->
+                                <div class="flex justify-center space-x-6 mt-6">
+                                    <div class="flex items-center space-x-2 bg-green-100 px-3 py-2 rounded-full">
+                                        <i class="fas fa-shield-check text-green-500 animate-pulse"></i>
+                                        <span class="text-green-700 text-xs font-semibold">SEGURO</span>
+                                    </div>
+                                    <div class="flex items-center space-x-2 bg-blue-100 px-3 py-2 rounded-full">
+                                        <i class="fas fa-zap text-blue-500"></i>
+                                        <span class="text-blue-700 text-xs font-semibold">RÁPIDO</span>
+                                    </div>
+                                    <div class="flex items-center space-x-2 bg-purple-100 px-3 py-2 rounded-full">
+                                        <i class="fas fa-eye-slash text-purple-500"></i>
+                                        <span class="text-purple-700 text-xs font-semibold">PRIVADO</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Results Container -->
+                    <div id="results-container" class="mt-16 hidden">
+                        <div class="bg-gradient-to-r from-gray-50 to-blue-50 p-8 rounded-3xl border border-gray-200">
+                            <div class="text-center mb-8">
+                                <h3 class="text-2xl font-bold text-gray-900 mb-4">Resultados del Análisis</h3>
+                                <div class="inline-flex items-center space-x-4 bg-white px-6 py-3 rounded-full border border-gray-200">
+                                    <span class="text-gray-600 font-semibold">Nivel de Riesgo:</span>
+                                    <span id="risk-badge" class="px-4 py-2 rounded-full font-bold text-white bg-gradient-to-r from-red-500 to-orange-500">
+                                        Calculando...
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                <div class="bg-white p-6 rounded-2xl border border-gray-100">
+                                    <div class="flex items-center space-x-3 mb-4">
+                                        <i class="fas fa-exclamation-triangle text-2xl text-red-500"></i>
+                                        <h4 class="font-bold text-gray-900">Señales de Alerta</h4>
+                                    </div>
+                                    <div id="warning-signals" class="text-gray-600"></div>
+                                </div>
+                                
+                                <div class="bg-white p-6 rounded-2xl border border-gray-100">
+                                    <div class="flex items-center space-x-3 mb-4">
+                                        <i class="fas fa-chart-bar text-2xl text-blue-500"></i>
+                                        <h4 class="font-bold text-gray-900">Estadísticas</h4>
+                                    </div>
+                                    <div id="statistics" class="text-gray-600"></div>
+                                </div>
+                                
+                                <div class="bg-white p-6 rounded-2xl border border-gray-100">
+                                    <div class="flex items-center space-x-3 mb-4">
+                                        <i class="fas fa-clock text-2xl text-purple-500"></i>
+                                        <h4 class="font-bold text-gray-900">Patrones Temporales</h4>
+                                    </div>
+                                    <div id="time-patterns" class="text-gray-600"></div>
+                                </div>
+                                
+                                <div class="bg-white p-6 rounded-2xl border border-gray-100">
+                                    <div class="flex items-center space-x-3 mb-4">
+                                        <i class="fas fa-comments text-2xl text-green-500"></i>
+                                        <h4 class="font-bold text-gray-900">Análisis de Contenido</h4>
+                                    </div>
+                                    <div id="content-analysis" class="text-gray-600"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+       
+        <!-- Final CTA Section -->
+        <section class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-6">
+                    <span class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">¿Listo para Descubrir la Verdad?</span>
+                </h2>
+                <p class="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
+                    Análisis profesional, completamente seguro y confidencial. 
+                    Obtén respuestas claras en minutos.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                    <button onclick="scrollToAnalyzer()" class="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-12 py-4 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+                        <span class="flex items-center justify-center space-x-3">
+                            <i class="fas fa-shield-check"></i>
+                            <span>Comenzar Análisis Seguro</span>
+                        </span>
+                    </button>
+                    
+                    <div class="flex items-center space-x-4 text-gray-500">
+                        <i class="fas fa-lock"></i>
+                        <span>100% Confidencial</span>
+                        <span>•</span>
+                        <i class="fas fa-zap"></i>
+                        <span>Resultados en 2 minutos</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="nav-logo">
-                        <i class="fas fa-search"></i>
-                        <span>ChatScan</span>
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-12">
+                <!-- Brand -->
+                <div class="md:col-span-2">
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-heart-broken text-white text-sm"></i>
+                        </div>
+                        <span class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                            ChatScan
+                        </span>
                     </div>
-                    <p>Herramienta de análisis de chats con IA para detectar patrones de comportamiento sospechoso.</p>
+                    <p class="text-gray-400 leading-relaxed max-w-md">
+                        La herramienta más avanzada y segura para el análisis confidencial de conversaciones de WhatsApp. 
+                        Tecnología de IA con privacidad absoluta.
+                    </p>
                 </div>
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Producto</h4>
-                        <a href="#features">Características</a>
-                        <a href="#how-it-works">Cómo Funciona</a>
-                        <a href="#analyzer">Analizador</a>
+                
+                <!-- Links -->
+                <div>
+                    <h4 class="font-bold text-white mb-4">Producto</h4>
+                    <div class="space-y-2">
+                        <a href="#security" class="block text-gray-400 hover:text-white transition-colors">Seguridad</a>
+                        <a href="#how-it-works" class="block text-gray-400 hover:text-white transition-colors">Cómo Funciona</a>
+                        <a href="#analyzer" class="block text-gray-400 hover:text-white transition-colors">Analizador</a>
                     </div>
-                    <div class="footer-column">
-                        <h4>Privacidad</h4>
-                        <a href="#">Política de Privacidad</a>
-                        <a href="#">Términos de Uso</a>
-                        <a href="#">Seguridad</a>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white mb-4">Legal</h4>
+                    <div class="space-y-2">
+                        <a href="#" class="block text-gray-400 hover:text-white transition-colors">Privacidad</a>
+                        <a href="#" class="block text-gray-400 hover:text-white transition-colors">Términos</a>
+                        <a href="#" class="block text-gray-400 hover:text-white transition-colors">Soporte</a>
                     </div>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 ChatScan. Todos los derechos reservados.</p>
+            
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 ChatScan. Todos los derechos reservados. Análisis seguro y confidencial.</p>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Mobile menu functionality
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling
+        function scrollToAnalyzer() {
+            document.getElementById('analyzer').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // QR Code generation
+        function generateQR() {
+            const qrContainer = document.getElementById('qr-container');
+            const uniqueId = Math.random().toString(36).substring(2, 15);
+            const qrData = `https://chatscan.com/upload?id=${uniqueId}`;
+            
+            qrContainer.innerHTML = `
+                <div class="w-48 h-48 bg-white border-2 border-green-500 rounded-2xl mx-auto flex items-center justify-center relative">
+                    <div class="w-40 h-40 bg-gray-900 rounded-lg flex items-center justify-center">
+                        <div class="grid grid-cols-8 gap-1">
+                            ${Array.from({length: 64}, (_, i) => 
+                                `<div class="w-1 h-1 ${Math.random() > 0.5 ? 'bg-white' : 'bg-gray-900'}"></div>`
+                            ).join('')}
+                        </div>
+                    </div>
+                    <div class="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center animate-pulse">
+                        <i class="fas fa-check text-white text-xs"></i>
+                    </div>
+                </div>
+                <p class="text-sm text-green-600 mt-4 font-semibold">¡QR Generado! Escanea desde tu móvil</p>
+            `;
+        }
+
+        // File upload simulation
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                simulateAnalysis();
+            }
+        });
+
+        function simulateAnalysis() {
+            const resultsContainer = document.getElementById('results-container');
+            const riskBadge = document.getElementById('risk-badge');
+            
+            // Show results container
+            resultsContainer.classList.remove('hidden');
+            resultsContainer.scrollIntoView({ behavior: 'smooth' });
+            
+            // Simulate analysis progress
+            riskBadge.textContent = 'Analizando...';
+            riskBadge.className = 'px-4 py-2 rounded-full font-bold text-white bg-gradient-to-r from-yellow-500 to-orange-500';
+            
+            setTimeout(() => {
+                riskBadge.textContent = 'Riesgo Alto';
+                riskBadge.className = 'px-4 py-2 rounded-full font-bold text-white bg-gradient-to-r from-red-500 to-orange-500';
+                
+                // Populate results
+                document.getElementById('warning-signals').innerHTML = `
+                    <div class="space-y-2">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-red-500 rounded-full"></div>
+                            <span class="text-sm">Horarios inusuales detectados</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-red-500 rounded-full"></div>
+                            <span class="text-sm">Cambios en patrones de comunicación</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                            <span class="text-sm">Frases evasivas identificadas</span>
+                        </div>
+                    </div>
+                `;
+                
+                document.getElementById('statistics').innerHTML = `
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span>Mensajes analizados:</span>
+                            <span class="font-semibold">1,247</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Días de conversación:</span>
+                            <span class="font-semibold">30</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Indicadores de riesgo:</span>
+                            <span class="font-semibold text-red-500">8</span>
+                        </div>
+                    </div>
+                `;
+                
+                document.getElementById('time-patterns').innerHTML = `
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span>Actividad nocturna:</span>
+                            <span class="font-semibold text-red-500">+340%</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Picos de actividad:</span>
+                            <span class="font-semibold">22:00-02:00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Días con actividad alta:</span>
+                            <span class="font-semibold">Vie, Sáb</span>
+                        </div>
+                    </div>
+                `;
+                
+                document.getElementById('content-analysis').innerHTML = `
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span>Tono emocional:</span>
+                            <span class="font-semibold text-yellow-500">Evasivo</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Palabras clave:</span>
+                            <span class="font-semibold text-red-500">7 detectadas</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Confiabilidad:</span>
+                            <span class="font-semibold text-red-500">Baja</span>
+                        </div>
+                    </div>
+                `;
+            }, 3000);
+        }
+
+        // Show QR scanner
+        function showQRScanner() {
+            generateQR();
+            document.getElementById('analyzer').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
