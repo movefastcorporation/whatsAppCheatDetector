@@ -1,4 +1,0 @@
-Test chat content for modal dismissal
-22:30 - User A: Hello
-22:31 - User B: Hi there
-22:32 - User A: How are you?
