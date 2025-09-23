@@ -53,68 +53,92 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
-    <!-- Google Fonts con display=swap para evitar FOUT -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- System fonts para velocidad máxima -->
+    <style>
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: local('Inter'), local('system-ui'), local('-apple-system'), local('sans-serif');
+        }
+    </style>
 
-    <!-- Font Awesome con async loading -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <!-- Font Awesome crítico - solo íconos usados -->
+    <style>
+        .fas, .fab { font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands"; font-weight: 900; }
+        .fa-heart-broken:before { content: "\f7a9"; }
+        .fa-whatsapp:before { content: "\f232"; }
+        .fa-lock:before { content: "\f023"; }
+        .fa-user-shield:before { content: "\f505"; }
+        .fa-eye-slash:before { content: "\f070"; }
+        .fa-bars:before { content: "\f0c9"; }
+        .fa-search:before { content: "\f002"; }
+        .fa-qrcode:before { content: "\f029"; }
+        .fa-shield-alt:before { content: "\f3ed"; }
+        .fa-desktop:before { content: "\f108"; }
+        .fa-trash-alt:before { content: "\f2ed"; }
+        .fa-mobile-alt:before { content: "\f3cd"; }
+        .fa-handshake:before { content: "\f2b5"; }
+        .fa-microchip:before { content: "\f2db"; }
+        .fa-exclamation:before { content: "\f12a"; }
+        .fa-check:before { content: "\f00c"; }
+        .fa-shield-check:before { content: "\f2f7"; }
+        .fa-clock:before { content: "\f017"; }
+        .fa-comments:before { content: "\f086"; }
+        .fa-chart-bar:before { content: "\f080"; }
+        .fa-exclamation-triangle:before { content: "\f071"; }
+        .fa-zap:before { content: "\26a1"; }
+    </style>
     
     <style>
-        /* Critical CSS - Above the fold only */
-        body { font-family: Inter, system-ui, sans-serif; margin: 0; }
-        .fixed { position: fixed; }
-        .top-0 { top: 0; }
-        .w-full { width: 100%; }
-        .bg-white\/95 { background-color: rgba(255, 255, 255, 0.95); }
-        .backdrop-blur-md { backdrop-filter: blur(12px); }
-        .border-b { border-bottom: 1px solid #f3f4f6; }
-        .z-50 { z-index: 50; }
-        .flex { display: flex; }
-        .items-center { align-items: center; }
-        .justify-between { justify-content: space-between; }
-        .h-16 { height: 4rem; }
-        .space-x-2 > * + * { margin-left: 0.5rem; }
-        .w-8 { width: 2rem; }
-        .h-8 { height: 2rem; }
-        .bg-gradient-to-r { background-image: linear-gradient(to right, var(--tw-gradient-stops)); }
-        .from-green-500 { --tw-gradient-from: #22c55e; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(34, 197, 94, 0)); }
-        .to-green-600 { --tw-gradient-to: #16a34a; }
-        .rounded-lg { border-radius: 0.5rem; }
-        .text-white { color: #ffffff; }
-        .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
-        .font-bold { font-weight: 700; }
-        .text-transparent { color: transparent; }
-        .bg-clip-text { background-clip: text; }
-        .from-green-600 { --tw-gradient-from: #16a34a; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(22, 163, 74, 0)); }
-        .to-green-700 { --tw-gradient-to: #15803d; }
-        .pt-16 { padding-top: 4rem; }
-        .min-h-screen { min-height: 100vh; }
+        /* Ultra minimal critical CSS */
+        body{font-family:Inter,system-ui,sans-serif;margin:0;background:#fff}
+        .fixed{position:fixed}
+        .top-0{top:0}
+        .w-full{width:100%}
+        .h-16{height:4rem}
+        .flex{display:flex}
+        .items-center{align-items:center}
+        .justify-between{justify-content:space-between}
+        .space-x-2>*+*{margin-left:.5rem}
+        .w-8{width:2rem}
+        .h-8{height:2rem}
+        .rounded-lg{border-radius:.5rem}
+        .text-white{color:#fff}
+        .text-xl{font-size:1.25rem}
+        .font-bold{font-weight:700}
+        .pt-16{padding-top:4rem}
+        .min-h-screen{min-height:100vh}
+        .bg-white{background:#fff}
+        .backdrop-blur-md{backdrop-filter:blur(12px)}
+        .border-b{border-bottom:1px solid #f3f4f6}
+        .z-50{z-index:50}
+        .text-transparent{color:transparent}
+        .bg-clip-text{background-clip:text}
 
-        /* Non-critical animations - loaded after */
-        @keyframes float { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-20px) rotate(2deg); } }
-        @keyframes pulse-soft { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.05); opacity: 0.8; } }
-        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 20% { transform: scale(1.1); } 40% { transform: scale(1.05); } }
-        .animate-heartbeat { animation: heartbeat 2s infinite; }
-        .shadow-glow { box-shadow: 0 0 30px rgba(236, 72, 153, 0.3); }
-        @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
-        .animate-shimmer { animation: shimmer 2s infinite; }
-        @keyframes gradient { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
-        .bg-gradient-animated { background: linear-gradient(-45deg, #22c55e, #25d366, #128c7e, #075e54); background-size: 400% 400%; animation: gradient 15s ease infinite; }
+        /* Green gradients */
+        .from-green-500{background:linear-gradient(to right,#22c55e,#16a34a)}
+        .from-green-600{background:linear-gradient(to right,#16a34a,#15803d)}
+        .bg-white95{background:rgba(255,255,255,.95)}
+
+        /* Defer animations */
+        .animate-heartbeat{animation:heartbeat 2s infinite}
+        @keyframes heartbeat{0%,100%{transform:scale(1)}20%{transform:scale(1.1)}40%{transform:scale(1.05)}}
     </style>
 </head>
 <body class="font-sans antialiased bg-white">
     
     <!-- Header -->
-    <header class="fixed top-0 w-full bg-white/95 backdrop-blur-md border-b border-gray-100 z-50">
+    <header class="fixed top-0 w-full bg-white95 backdrop-blur-md border-b z-50">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" role="navigation" aria-label="Navegación principal">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
                 <div class="flex items-center space-x-2">
-                    <div class="w-8 h-8 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center">
+                    <div class="w-8 h-8 from-green-500 rounded-lg flex items-center justify-center">
                         <i class="fas fa-heart-broken text-white text-sm" aria-hidden="true"></i>
                     </div>
-                    <span class="text-xl font-bold bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
+                    <span class="text-xl font-bold from-green-600 bg-clip-text text-transparent">
                         ChatScan
                     </span>
                 </div>
@@ -834,107 +858,36 @@
         </div>
     </footer>
 
-    <!-- JavaScript movido al final para optimizar carga -->
-    <!-- Tailwind CSS con async loading -->
+    <!-- Ultra minimal JS -->
     <script>
-        // Cargar Tailwind de forma asíncrona
-        const script = document.createElement('script');
-        script.src = 'https://cdn.tailwindcss.com';
-        script.async = true;
-        script.onload = function() {
-            // Configurar Tailwind una vez cargado
-            tailwind.config = {
-                theme: {
-                    extend: {
-                        colors: {
-                            primary: { 50: '#f0fdf4', 500: '#22c55e', 600: '#16a34a', 700: '#15803d' },
-                            secondary: { 500: '#25d366', 600: '#128c7e' },
-                            accent: { 500: '#f59e0b', 600: '#d97706' },
-                            whatsapp: { 500: '#25d366', 600: '#128c7e', 700: '#075e54' }
-                        },
-                        fontFamily: { 'sans': ['Inter', 'system-ui', 'sans-serif'] },
-                        animation: { 'float': 'float 6s ease-in-out infinite', 'pulse-soft': 'pulse-soft 2s ease-in-out infinite', 'gradient': 'gradient 15s ease infinite' }
-                    }
-                }
-            }
+        // Critical functions only
+        function scrollToAnalyzer(){document.getElementById('analyzer').scrollIntoView({behavior:'smooth'})}
+        function showWaitlistPopup(){const m=document.getElementById('waitlist-modal');m.classList.remove('hidden');document.body.style.overflow='hidden'}
+        function closeWaitlistPopup(){document.getElementById('waitlist-modal').classList.add('hidden');document.body.style.overflow='auto'}
+        function showSuccessPopup(){document.getElementById('success-modal').classList.remove('hidden');document.body.style.overflow='hidden'}
+        function closeSuccessPopup(){document.getElementById('success-modal').classList.add('hidden');document.body.style.overflow='auto'}
+        function submitWaitlist(){const e=document.getElementById('waitlist-email').value.trim();if(!e||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){alert('Email inválido');return}closeWaitlistPopup();setTimeout(showSuccessPopup,500)}
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded',()=>{
+            const btn=document.getElementById('mobile-menu-btn');
+            if(btn)btn.onclick=()=>document.getElementById('mobile-menu').classList.toggle('hidden')
+        });
+
+        document.onclick=e=>{
+            if(e.target.id==='waitlist-modal')closeWaitlistPopup();
+            if(e.target.id==='success-modal')closeSuccessPopup()
         };
-        document.head.appendChild(script);
-    </script>
 
-    <!-- JavaScript principal con defer -->
-    <script defer>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Mobile menu
-            const menuBtn = document.getElementById('mobile-menu-btn');
-            if (menuBtn) {
-                menuBtn.addEventListener('click', () => {
-                    document.getElementById('mobile-menu').classList.toggle('hidden');
-                });
-            }
-        });
+        document.onkeydown=e=>{if(e.key==='Escape'){closeWaitlistPopup();closeSuccessPopup()}};
 
-        // Funciones globales necesarias
-        function scrollToAnalyzer() {
-            document.getElementById('analyzer').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function showWaitlistPopup() {
-            const modal = document.getElementById('waitlist-modal');
-            const modalContent = document.getElementById('modal-content');
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-            setTimeout(() => {
-                modalContent.classList.remove('scale-95', 'opacity-0');
-                modalContent.classList.add('scale-100', 'opacity-100');
-            }, 10);
-        }
-
-        function closeWaitlistPopup() {
-            const modal = document.getElementById('waitlist-modal');
-            const modalContent = document.getElementById('modal-content');
-            modalContent.classList.remove('scale-100', 'opacity-100');
-            modalContent.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-                const emailInput = document.getElementById('waitlist-email');
-                if (emailInput) emailInput.value = '';
-            }, 300);
-        }
-
-        function showSuccessPopup() {
-            document.getElementById('success-modal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeSuccessPopup() {
-            document.getElementById('success-modal').classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-
-        async function submitWaitlist() {
-            const emailInput = document.getElementById('waitlist-email');
-            const email = emailInput.value.trim();
-            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                alert('Por favor, ingresa un correo válido.');
-                return;
-            }
-            closeWaitlistPopup();
-            setTimeout(showSuccessPopup, 500);
-        }
-
-        // Event listeners para modales
-        document.addEventListener('click', (e) => {
-            if (e.target.id === 'waitlist-modal') closeWaitlistPopup();
-            if (e.target.id === 'success-modal') closeSuccessPopup();
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeWaitlistPopup();
-                closeSuccessPopup();
-            }
-        });
+        // Load Tailwind async after critical render
+        setTimeout(()=>{
+            const s=document.createElement('script');
+            s.src='https://cdn.tailwindcss.com';
+            s.onload=()=>tailwind.config={theme:{extend:{colors:{whatsapp:{500:'#25d366'}}}}};
+            document.head.appendChild(s)
+        },100);
     </script>
 </body>
 </html>
