@@ -20,8 +20,18 @@
     <meta property="twitter:description" content="Análisis confidencial y seguro de conversaciones de WhatsApp.">
     <meta property="twitter:image" content="https://chatscan.com/og-image.jpg">
     
-    <!-- Favicon - Corazón Roto Optimizado -->
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%23FFFFFF'/%3E%3Cpath d='M8 12c0-2.2 1.8-4 4-4 1.1 0 2.1.4 2.8 1.1.4-.4.9-.7 1.5-.9L15 10l1.3-1.8c.6.2 1.1.5 1.5.9C18.5 8.4 19.5 8 20.6 8c2.2 0 4 1.8 4 4 0 2.5-2.3 5.3-8.6 11.3C9.7 17.3 8 14.5 8 12z' fill='%23EF4444'/%3E%3Cpath d='M14 8l2 4 2-4h-4z' fill='%23FFFFFF'/%3E%3Cpath d='M16 12v10l-1-1c-3-3-5-5-5-7s1-3 2.5-3c1 0 1.8.5 2.5 1z' fill='%23DC2626'/%3E%3C/svg%3E" type="image/svg+xml">
+    <!-- Favicon - Corazón Roto Verde -->
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+
+    <!-- Para mejor compatibilidad con GitHub Pages -->
+    <link rel="shortcut icon" href="./favicon.ico">
+
+    <!-- Favicon alternativo usando data URI como fallback -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' ry='7' fill='%234ade80'/%3E%3Cpath d='M8 12c0-2.2 1.8-4 4-4 1.1 0 2.1.4 2.8 1.1L16 10.2l1.2-1.1C17.9 8.4 18.9 8 20 8c2.2 0 4 1.8 4 4 0 1.5-.9 3.1-2.3 4.3L16 22l-5.7-6.7C9.9 15.1 8 13.5 8 12z' fill='white'/%3E%3Cpath d='M16 8v14M14 11h4M15 14h2M14 17h4' stroke='%234ade80' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E" type="image/svg+xml">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -31,18 +41,23 @@
                 extend: {
                     colors: {
                         primary: {
-                            50: '#eff6ff',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
+                            50: '#f0fdf4',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
                         },
                         secondary: {
-                            500: '#8b5cf6',
-                            600: '#7c3aed',
+                            500: '#25d366',
+                            600: '#128c7e',
                         },
                         accent: {
                             500: '#f59e0b',
                             600: '#d97706',
+                        },
+                        whatsapp: {
+                            500: '#25d366',
+                            600: '#128c7e',
+                            700: '#075e54',
                         }
                     },
                     fontFamily: {
@@ -116,23 +131,23 @@
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
                 <div class="flex items-center space-x-2">
-                    <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+                    <div class="w-8 h-8 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center">
                         <i class="fas fa-heart-broken text-white text-sm" aria-hidden="true"></i>
                     </div>
-                    <span class="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    <span class="text-xl font-bold bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
                         ChatScan
                     </span>
                 </div>
                 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#security" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium">
+                    <a href="#security" class="text-gray-600 hover:text-green-600 transition-colors duration-200 font-medium">
                         Seguridad
                     </a>
-                    <a href="#how-it-works" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium">
+                    <a href="#how-it-works" class="text-gray-600 hover:text-green-600 transition-colors duration-200 font-medium">
                         Cómo Funciona
                     </a>
-                    <a href="#analyzer" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium">
+                    <a href="#analyzer" class="text-gray-600 hover:text-green-600 transition-colors duration-200 font-medium">
                         Analizador
                     </a>
                     <button onclick="scrollToAnalyzer()" class="bg-gradient-to-r from-red-500 to-pink-500 text-white px-8 py-3 rounded-full font-bold hover:shadow-lg transform hover:scale-105 transition-all duration-200 animate-pulse">
@@ -149,9 +164,9 @@
             <!-- Mobile Menu -->
             <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-100 py-4">
                 <div class="flex flex-col space-y-4">
-                    <a href="#security" class="text-gray-600 hover:text-blue-600 transition-colors px-4 py-2">Seguridad</a>
-                    <a href="#how-it-works" class="text-gray-600 hover:text-blue-600 transition-colors px-4 py-2">Cómo Funciona</a>
-                    <a href="#analyzer" class="text-gray-600 hover:text-blue-600 transition-colors px-4 py-2">Analizador</a>
+                    <a href="#security" class="text-gray-600 hover:text-green-600 transition-colors px-4 py-2">Seguridad</a>
+                    <a href="#how-it-works" class="text-gray-600 hover:text-green-600 transition-colors px-4 py-2">Cómo Funciona</a>
+                    <a href="#analyzer" class="text-gray-600 hover:text-green-600 transition-colors px-4 py-2">Analizador</a>
                     <button onclick="scrollToAnalyzer()" class="mx-4 bg-gradient-to-r from-red-500 to-pink-500 text-white px-8 py-3 rounded-full font-bold animate-pulse">
                         🔍 Descubrir Ahora
                     </button>
@@ -201,11 +216,11 @@
                                 <span>Encriptado end-to-end</span>
                             </div>
                             <div class="flex items-center space-x-2">
-                                <i class="fas fa-user-shield text-blue-500"></i>
+                                <i class="fas fa-user-shield text-green-600"></i>
                                 <span>Procesamiento local</span>
                             </div>
                             <div class="flex items-center space-x-2">
-                                <i class="fas fa-eye-slash text-red-500"></i>
+                                <i class="fas fa-eye-slash text-green-700"></i>
                                 <span>Sin registros</span>
                             </div>
                         </div>
@@ -246,7 +261,7 @@
                                     <!-- Chat Interface -->
                                     <div class="space-y-4">
                                         <div class="flex items-center space-x-3 pb-4 border-b border-gray-100">
-                                            <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                                            <div class="w-10 h-10 bg-whatsapp-500 rounded-full flex items-center justify-center">
                                                 <i class="fab fa-whatsapp text-white"></i>
                                             </div>
                                             <div>
@@ -800,10 +815,10 @@
                 <!-- Brand -->
                 <div class="md:col-span-2">
                     <div class="flex items-center space-x-2 mb-6">
-                        <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+                        <div class="w-8 h-8 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center">
                             <i class="fas fa-heart-broken text-white text-sm"></i>
                         </div>
-                        <span class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                        <span class="text-2xl font-bold bg-gradient-to-r from-green-400 to-green-600 bg-clip-text text-transparent">
                             ChatScan
                         </span>
                     </div>

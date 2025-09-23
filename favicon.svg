@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+  <!-- Fondo verde redondeado -->
+  <rect width="192" height="192" rx="42" ry="42" fill="#4ade80"/>
+
+  <!-- Corazón roto blanco -->
+  <path d="M48 76c0-13.25 10.75-24 24-24 6.627 0 12.627 2.687 16.971 7.029L96 66.058l7.029-7.029C107.373 54.687 113.373 52 120 52c13.25 0 24 10.75 24 24 0 9.5-5.5 18.5-14 26.5L96 142l-34-39.5C53.5 94.5 48 85.5 48 76z" fill="white"/>
+
+  <!-- Grieta del corazón -->
+  <path d="M96 52v90M88 66l16 0M92 80l8 0M90 94l12 0" stroke="#4ade80" stroke-width="4" stroke-linecap="round"/>
+</svg>
